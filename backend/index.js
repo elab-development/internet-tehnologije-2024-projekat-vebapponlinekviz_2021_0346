@@ -3,6 +3,9 @@ const app = express()
 const mongoose = require('mongoose');
 const port = 2812;
 
+//modeli
+const User = require("./models/user.model.js");
+
 app.get('/', function (req, res) {
   res.send('Hello World')
 })
