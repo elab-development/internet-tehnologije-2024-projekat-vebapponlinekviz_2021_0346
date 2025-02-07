@@ -3,10 +3,16 @@ const app = express()
 const mongoose = require('mongoose');
 const port = 2812;
 
+//middleware
+app.use(express.json());
+
 //modeli
-const User = require("./models/user.model.js");
 const {Category} = require("./models/category.model.js");
 const Game = require("./models/game.model.js");
+
+//rute
+const userRouter = require("./routes/user.route.js");
+app.use("/api/users", userRouter);
 
 app.get('/', function (req, res) {
   res.send('Hello World')
@@ -21,6 +27,6 @@ mongoose.connect('mongodb+srv://kacii:rfDXMnkAOeOoZk2W@backend.c88zu.mongodb.net
     })
     
   })
-  .catch(()=> {
-    console.log("Connection failed!");
+  .catch((e)=> {
+    console.log("Connection failed! "+e);
   })
