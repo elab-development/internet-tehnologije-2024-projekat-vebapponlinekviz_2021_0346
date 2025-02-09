@@ -6,13 +6,13 @@ const port = 2812;
 //middleware
 app.use(express.json());
 
-//modeli
-const Game = require("./models/game.model.js");
 
 //rute
 const userRouter = require("./routes/user.route.js");
+const gameRouter = require("./routes/game.route.js");
 const categoryRouter = require("./routes/category.route.js");
 app.use("/api/users", userRouter);
+app.use("/api/games", gameRouter);
 app.use("/api/categories",categoryRouter);
 
 app.get('/', function (req, res) {
