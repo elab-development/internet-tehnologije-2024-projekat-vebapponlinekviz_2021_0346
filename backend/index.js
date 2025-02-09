@@ -12,7 +12,9 @@ const Game = require("./models/game.model.js");
 
 //rute
 const userRouter = require("./routes/user.route.js");
+const gameRouter = require("./routes/game.route.js");
 app.use("/api/users", userRouter);
+app.use("/api/games", gameRouter);
 
 app.get('/', function (req, res) {
   res.send('Hello World')
