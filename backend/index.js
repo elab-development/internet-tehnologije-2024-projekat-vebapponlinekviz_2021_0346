@@ -7,12 +7,13 @@ const port = 2812;
 app.use(express.json());
 
 //modeli
-const {Category} = require("./models/category.model.js");
 const Game = require("./models/game.model.js");
 
 //rute
 const userRouter = require("./routes/user.route.js");
+const categoryRouter = require("./routes/category.route.js");
 app.use("/api/users", userRouter);
+app.use("/api/categories",categoryRouter);
 
 app.get('/', function (req, res) {
   res.send('Hello World')
