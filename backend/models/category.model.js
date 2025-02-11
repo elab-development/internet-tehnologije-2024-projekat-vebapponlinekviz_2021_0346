@@ -15,7 +15,7 @@ const QuestionSchema = mongoose.Schema({
   },
   points: {
     type: Number,
-    requred: true,
+    required: true,
   },
 });
 
