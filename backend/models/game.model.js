@@ -1,25 +1,26 @@
 const mongoose = require("mongoose");
-const { CategorySchema } = require("./category.model.js");
 
 const GameSchema = mongoose.Schema(
-    {
-        category:{
-            type: CategorySchema,
-            requred: true
-        },
-        player:{
-            type: String,
-            requred: true
-        },
-        score:{
-            type: Number,
-            default: 0
-        }
+  {
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
+      required: true,
     },
-    {
-        timestamps: true
-    }
+    player: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    score: {
+      type: Number,
+      default: 0,
+    },
+  },
+  {
+    timestamps: true,
+  }
 );
 
-const Game = mongoose.model("Game",GameSchema);
+const Game = mongoose.model("Game", GameSchema);
 module.exports = Game;
