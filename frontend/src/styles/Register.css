@@ -1,0 +1,56 @@
+.register-wrapper {
+  background-image: url("../media/registerBg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  align-items: center;
+  padding:2rem;
+  font-size:1.6rem;
+  box-shadow: 3rem 1.5rem 0 #00C3FF;
+}
+
+label {
+    align-self: flex-start;
+    color: #00C3FF;
+}
+
+input {
+    background-color: #00C3FF;
+    border:none;
+    color:#fff;
+    font-size: 1.6rem;
+}
+
+button {
+    background-color: #00C3FF;
+    border:none;
+    color:#fff;
+    margin:2rem 0.8rem 0.6rem;
+    padding:0.1rem 1rem;
+    font-size:1.6rem;
+    transition: all 0.4s ease-in-out;
+}
+
+button:hover {
+    background-color: #0062ff;
+    box-shadow: 0px 6px 20px rgba(0, 119, 182, 0.7); 
+    transform: scale(1.05);
+    cursor:pointer;
+}
+
+input:focus {
+    border:0.1rem solid #0062ff;
+    outline:none;
+}
+
