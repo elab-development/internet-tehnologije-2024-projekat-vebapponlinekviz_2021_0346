@@ -72,6 +72,6 @@ button {
 button:hover {
     color: #fff;
     background-color: #00C3FF;
-    box-shadow: 1.5rem 0.5rem 0 #fff; 
-
+    box-shadow: 1.5rem 0.5rem 0 #fff;
+    cursor:pointer; 
 }
