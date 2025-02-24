@@ -1,5 +1,5 @@
 .loginpage-wrapper {
-    background-image: url("../media/LoginPageBg.png");
+  background-image: url("../media/LoginPageBg.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -12,66 +12,66 @@
 }
 
 img {
-    margin: 0;
-    margin-top: 5%;
+  margin: 0;
+  margin-top: 5%;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-    font-size: 1.6rem;
-    margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.6rem;
+  margin-top: 1rem;
 }
 
 .form-element {
-    background-color: #00C3FF;
-    padding: 0 1rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  background-color: #00c3ff;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .upper-element {
-    padding-top: 1rem;
-    padding-bottom: 0.5rem;
+  padding-top: 1rem;
+  padding-bottom: 0.5rem;
 }
 
 .lower-element {
-    padding-bottom: 1rem;
+  padding-bottom: 1rem;
 }
 
 label {
-    color: #fff;
-    padding-right: 2rem;
+  color: #fff;
+  padding-right: 2rem;
 }
 
 input {
-    font-size: 1.5rem;
-    padding: 0 6.8rem 0 0;
-    border: none;
-    color: #00C3FF;
+  font-size: 1.5rem;
+  padding: 0 6.8rem 0 0;
+  border: none;
+  color: #00c3ff;
 }
 
 input:focus {
-    outline: none;
+  outline: none;
 }
 
 button {
-    align-self: flex-end;
-    color: #00C3FF;
-    background-color: #fff;
-    text-align: center;
-    border: none;
-    padding: 0.3rem 10rem;
-    box-shadow: 1.5rem 0.5rem 0 #00C3FF ;
-    margin:1rem 1.5rem 0 0;
-    font-size: 1.4rem;
-    transition: all 0.4s ease-in-out;
+  align-self: flex-end;
+  color: #00c3ff;
+  background-color: #fff;
+  text-align: center;
+  border: none;
+  padding: 0.3rem 10rem;
+  box-shadow: 1.5rem 0.5rem 0 #00c3ff;
+  margin: 1rem 1.5rem 0 0;
+  font-size: 1.4rem;
+  transition: all 0.4s ease-in-out;
 }
 
 button:hover {
-    color: #fff;
-    background-color: #00C3FF;
-    box-shadow: 1.5rem 0.5rem 0 #fff;
-    cursor:pointer; 
+  color: #fff;
+  background-color: #00c3ff;
+  box-shadow: 1.5rem 0.5rem 0 #fff;
+  cursor: pointer;
 }

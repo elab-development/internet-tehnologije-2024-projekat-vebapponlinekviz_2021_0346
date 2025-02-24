@@ -1,0 +1,108 @@
+.home-wrapper {
+  background-image: url("../media/HomeBg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+}
+
+.right-wrapper {
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.profile {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0062ff;
+  padding: 1.9rem 10rem 0.5rem 0.5rem;
+  max-width: 30vw;
+  align-self: flex-end;
+  position: relative;
+  color:#fff;
+  cursor:pointer;
+}
+
+.profile img {
+  max-width: 5rem;
+  max-height: 5rem;
+  align-self: flex-end;
+  margin:0;
+  position: absolute;
+  top:1rem;
+  right: 0;
+}
+
+.category-button-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap:1rem;
+    margin-bottom: 20%;
+    margin-right: 20%;
+}
+
+.category-button {
+    font-size: 2.2rem;
+    width: 30rem; /* Fiksna širina za sva dugmad */
+    padding: 0.5rem 1rem; /* Manji padding */
+    border: none;
+    color: #fff;
+    white-space: nowrap;
+    transition: opacity 0.3s ease, transform 0.2s ease;
+}
+
+.category-button:hover {
+    opacity: 0.8;
+    transform: scale(1.05);
+    cursor:pointer;
+}
+
+.first-button {
+background-color: #FDB3E7;
+}
+
+.second-button {
+    background-color: #A79FF1;
+}
+
+.third-button {
+    background-color: #5CA1FC;
+}
+
+.fourth-button {
+    background-color: #6051FF;
+}
+
+.left-wrapper {
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.points {
+    margin-bottom: 45vh;
+    align-self:flex-start;
+    margin-left:5vw;
+    font-size: 1.6rem;
+    background-color: #00C3FF;
+    padding: 1rem 9rem;
+    color:#fff;
+}
+
+.left-wrapper img {
+    max-width: 35vw;
+    margin-left:20vw;
+    margin-top:5vh;
+}
