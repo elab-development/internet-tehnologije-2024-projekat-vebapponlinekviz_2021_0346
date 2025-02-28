@@ -1,0 +1,57 @@
+.login-wrapper {
+  background-image: url("../media/LoginBg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+img {
+  margin: 10% 50% 0 15%;
+  width: 600px;
+  max-height: 150px;
+}
+
+.login-btns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  width: 600px;
+  margin: 5% 50% 0 15%;
+}
+
+.login-btns button {
+  flex: 1;
+  padding: 10px 20px;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #00c3ff;
+  border: none;
+  background-color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+
+.login-btns button:nth-child(3) {
+  flex-basis: 100%;
+}
+
+#GOST {
+  color: #fff;
+  background-color: #00c3ff;
+}
+
+.login-btns button:hover {
+  background-color: #00c3ff;
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#GOST:hover {
+  background-color: #fff;
+  color: #00c3ff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
