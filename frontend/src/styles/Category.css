@@ -1,5 +1,5 @@
 .category-wrapper {
-  background-image: url("../media/Category1Bg.png");
+  background-image: url("../media/C1bg.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -17,6 +17,7 @@
   justify-content: space-around;
   align-items: center;
   width: 100vw;
+  margin-top:2rem;
 }
 
 .category-name {
@@ -90,5 +91,5 @@
     position: absolute;
     margin:0;
     bottom:20%;
-    right:25%; 
+    right:20%; 
 }
