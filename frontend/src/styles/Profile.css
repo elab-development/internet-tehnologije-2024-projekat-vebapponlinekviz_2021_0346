@@ -1,0 +1,68 @@
+.profile-wrapper {
+  background-image: url("../media/ProfileBg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 0;
+  align-items: flex-start;
+}
+
+.profile-wrapper-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.profile-wrapper-left img {
+  margin-left: 20%;
+  margin-top: 10%;
+  margin-right: 0;
+  max-width: 35vw;
+}
+
+.profile-wrapper-left .profile-points {
+  align-self: flex-start;
+  margin-left: 20%;
+  padding: 1rem 9rem;
+  font-size: 1.6rem;
+  white-space: nowrap;
+  background-color: #00c3ff;
+  color: #fff;
+}
+
+.profile-wrapper-right {
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+  font-size:1.4rem;
+}
+
+.profile-user-data {
+  background-color: #00c3ffb3;
+  color: #fff;
+  margin-right: 20%;
+  margin-top: 10%;
+}
+
+.profile-wrapper-right .profile-user-data button {
+  background-color: #ffffff93;
+  color: #004bc3;
+  text-align: center;
+  margin: 1rem auto;
+  display: block;
+  font-size: 1.4rem;
+}
+
+#DELETE-DATA {
+  background-color: #93d9ff;
+  color: #000;
+  font-size:1.4rem;
+  margin: 10% 20% 0 0;
+  display: block;
+}
