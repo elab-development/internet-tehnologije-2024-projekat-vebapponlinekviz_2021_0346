@@ -1,0 +1,48 @@
+.score-wrapper {
+  background-image: url("../media/C1bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.score-heading {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  margin-top:2rem;
+  gap: 1rem;
+  font-size: 1.6rem;
+  color: #fff;
+}
+
+.score-heading img {
+  width: 5rem;
+  height: 5rem;
+  margin: 0;
+}
+
+.score-points {
+    margin:3% 20%;
+    font-size:2.5rem;
+    color:#fff;
+    padding:3rem 2rem;
+}
+
+.score-wrapper button {
+    margin-left:20%;
+    border:none;
+    font-size:1.8rem;
+    color:#fff;
+    padding:1rem 5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.score-wrapper button:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
