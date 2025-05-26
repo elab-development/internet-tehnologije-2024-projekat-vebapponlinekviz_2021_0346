@@ -24,6 +24,7 @@
   margin-top: 10%;
   margin-right: 0;
   max-width: 35vw;
+  cursor:pointer;
 }
 
 .profile-wrapper-left .profile-points {
@@ -48,21 +49,33 @@
   color: #fff;
   margin-right: 20%;
   margin-top: 10%;
+  padding: 1.5rem;
 }
 
 .profile-wrapper-right .profile-user-data button {
-  background-color: #ffffff93;
+  background-color: #ffffffb7;
   color: #004bc3;
   text-align: center;
   margin: 1rem auto;
   display: block;
   font-size: 1.4rem;
+  padding: 0 2rem;
+  transition: box-shadow 0.3s ease-in-out;
 }
 
-#DELETE-DATA {
+.profile-wrapper-right .profile-user-data button:hover {
+  box-shadow: 0 0 20px 6px #ffffff;
+}
+
+
+.profile-wrapper #DELETE-DATA {
   background-color: #93d9ff;
   color: #000;
   font-size:1.4rem;
   margin: 10% 20% 0 0;
   display: block;
+  transition: box-shadow 0.3s ease-in-out;
+}
+.profile-wrapper #DELETE-DATA:hover {
+  box-shadow: 0 0 20px 6px #ffffff;
 }

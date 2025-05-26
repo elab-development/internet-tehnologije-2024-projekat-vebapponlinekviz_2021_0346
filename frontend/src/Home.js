@@ -2,8 +2,14 @@ import React from "react";
 import logo from "./media/Logo.png";
 import shark from "./media/Shark.png";
 import "./styles/Home.css";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  const handleNavigate = ()=> {
+    navigate("/profile");
+  }
   return (
     <div className="home-wrapper">
       <div className="left-wrapper">
@@ -16,7 +22,7 @@ const Home = () => {
         </div>
       </div>
       <div className="right-wrapper">
-        <div className="profile">
+        <div className="profile" onClick={handleNavigate}>
           <p>Korisnicko_ime</p>
           <img src={shark} alt="shark" />
         </div>

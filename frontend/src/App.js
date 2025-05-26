@@ -1,7 +1,12 @@
 import './App.css';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import Login from "./Login";
+import LoginPage from "./LoginPage";
+import Register from "./Register";
+import Home from "./Home";
+import Profile from "./Profile";
 import Cateogory from './Cateogory';
-import Login from './Login';
-import Score from './Score';
+import Score from "./Score";
 
 function App() {
   const category1 = {
@@ -21,9 +26,17 @@ function App() {
     name:"Kategorija 4"
   }
   return (
-    <div className="App">
-     <Score category={category4} />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<LoginPage/>} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/game" element={<Cateogory category={category2} />} />
+        <Route path="/score" element={<Score category={category2}/>} />
+      </Routes>
+    </Router>
   );
 }
 

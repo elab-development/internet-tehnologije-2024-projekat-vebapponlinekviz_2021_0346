@@ -11,19 +11,19 @@
   align-items: center;
 }
 
-img {
+.loginpage-wrapper img {
   margin: 0;
   margin-top: 5%;
 }
 
-form {
+.loginpage-wrapper form {
   display: flex;
   flex-direction: column;
   font-size: 1.6rem;
   margin-top: 1rem;
 }
 
-.form-element {
+.loginpage-wrapper .form-element {
   background-color: #00c3ff;
   padding: 0 1rem;
   display: flex;
@@ -31,32 +31,32 @@ form {
   justify-content: space-between;
 }
 
-.upper-element {
+.loginpage-wrapper .upper-element {
   padding-top: 1rem;
   padding-bottom: 0.5rem;
 }
 
-.lower-element {
+.loginpage-wrapper .lower-element {
   padding-bottom: 1rem;
 }
 
-label {
+.loginpage-wrapper label {
   color: #fff;
   padding-right: 2rem;
 }
 
-input {
+.loginpage-wrapper input {
   font-size: 1.5rem;
   padding: 0 6.8rem 0 0;
   border: none;
   color: #00c3ff;
 }
 
-input:focus {
+.loginpage-wrapper input:focus {
   outline: none;
 }
 
-button {
+.loginpage-wrapper button {
   align-self: flex-end;
   color: #00c3ff;
   background-color: #fff;
@@ -69,7 +69,7 @@ button {
   transition: all 0.4s ease-in-out;
 }
 
-button:hover {
+.loginpage-wrapper button:hover {
   color: #fff;
   background-color: #00c3ff;
   box-shadow: 1.5rem 0.5rem 0 #fff;

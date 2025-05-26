@@ -1,12 +1,18 @@
 import React from "react";
 import logo from "./media/Logo.png";
 import "./styles/Profile.css";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
+  const navigate = useNavigate();
+
+  const handleNavigate = ()=> {
+    navigate("/home");
+  }
   return (
     <div className="profile-wrapper">
       <div className="profile-wrapper-left">
-        <img src={logo} alt="logo" />
+        <img src={logo} alt="logo" onClick={handleNavigate}/>
         <div className="profile-points">
           <p>Kategorija 1: {}</p>
           <p>Kategorija 2: {}</p>
