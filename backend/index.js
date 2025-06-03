@@ -1,9 +1,11 @@
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
+const cors = require('cors');
 const mongoose = require('mongoose');
 const port = 2812;
 
 //middleware
+app.use(cors());
 app.use(express.json());
 
 
