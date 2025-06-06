@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import logo from "./media/Logo.png";
 import shark from "./media/Shark.png";
 import "./styles/Home.css";
 import { useNavigate } from "react-router-dom";
+import { LoginContext } from "./context/LoginContext";
 
 const Home = () => {
   const navigate = useNavigate();
+
+  const {player} = useContext(LoginContext);
 
   const handleNavigate = ()=> {
     navigate("/profile");
@@ -23,7 +26,7 @@ const Home = () => {
       </div>
       <div className="right-wrapper">
         <div className="profile" onClick={handleNavigate}>
-          <p>Korisnicko_ime</p>
+          <p>{player ? player.username : "Gost"}</p>
           <img src={shark} alt="shark" />
         </div>
         <div className="category-button-wrapper">

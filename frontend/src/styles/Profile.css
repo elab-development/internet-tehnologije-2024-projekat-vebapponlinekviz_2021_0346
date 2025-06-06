@@ -52,9 +52,13 @@
   padding: 1.5rem;
 }
 
+.profile-user-data span {
+  color: #00296b;
+}
+
 .profile-wrapper-right .profile-user-data button {
   background-color: #ffffffb7;
-  color: #004bc3;
+  color: #00296b;
   text-align: center;
   margin: 1rem auto;
   display: block;
@@ -70,7 +74,7 @@
 
 .profile-wrapper #DELETE-DATA {
   background-color: #93d9ff;
-  color: #000;
+  color: #00296b;
   font-size:1.4rem;
   margin: 10% 20% 0 0;
   display: block;
@@ -78,4 +82,41 @@
 }
 .profile-wrapper #DELETE-DATA:hover {
   box-shadow: 0 0 20px 6px #ffffff;
+}
+
+.profile-wrapper .guest-prompt {
+  align-self:center;
+  justify-items: center;
+  margin:0 auto;
+  background-color: #004bc3d4;
+  padding:1rem 2rem;
+  font-size:1.4rem;
+  color: #fff;
+}
+
+.profile-wrapper .guest-prompt button {
+  background-color: #93d9ffa2;
+  font-size:1.4rem;
+  color: #fff;
+  margin-top: 0.7rem;
+  padding: 0.2rem 1rem;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.profile-wrapper .guest-prompt button:hover {
+  box-shadow: 0 0 20px 6px #70f1fa;
+}
+
+.profile-wrapper .guest-prompt a {
+  color: #70f1fa;
+}
+
+.profile-wrapper .update-form-wrapper {
+  z-index: 1000;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  background-color: #00296b90;
+  background-image: none;
+  display: none;
 }
