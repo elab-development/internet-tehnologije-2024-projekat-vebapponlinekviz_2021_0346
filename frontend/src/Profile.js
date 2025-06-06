@@ -9,21 +9,20 @@ const Profile = () => {
   const api = axios.create({
     baseURL: "http://localhost:2812/api/",
   });
-  const { player } = useContext(LoginContext);
+  const { player, setPlayer } = useContext(LoginContext);
 
   const [name, setName] = useState(player?.name || "");
   const [mail, setMail] = useState(player?.mail || "");
   const [username, setUsername] = useState(player?.username || "");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
   const updateForm = useRef();
 
   const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail);
-  const isPasswordValid = password.length >= 8;
-  const doPasswordsMatch = password === confirmPassword;
+  const isNewPasswordValid = newPassword.length >= 8;
 
-  const isFormValid = isEmailValid && isPasswordValid && doPasswordsMatch;
+  const isFormValid = isEmailValid && isNewPasswordValid;
   const navigate = useNavigate();
 
   const handleNavigate = () => {
@@ -32,35 +31,41 @@ const Profile = () => {
 
   const handleDataChange = () => {
     updateForm.current.style.display = "flex";
-  }
+  };
 
-  const handleDispose = ()=> {
+  const handleDispose = () => {
+    setOldPassword("");
+    setNewPassword("");
     updateForm.current.style.display = "none";
-  }
+  };
+
+  const updateUser = async (newData, oldUsername, oldPassword) => {
+    return await api.patch("/users", {
+      filter: { username: oldUsername, password: oldPassword },
+      update: newData,
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    let newUser = {
-      name,
-      mail,
-      username,
-      password,
+    let newData = {
+      username: username,
+      name: name,
+      mail: mail,
+      password: newPassword,
     };
+
     try {
-      await createUser(newUser);
-      handleNavigate();
+      let updatedUser = await updateUser(newData, player.username, oldPassword);
+      setPlayer(updatedUser.data);
+      handleDispose();
     } catch (error) {
-      if (error.response && error.response.status === 400) {
-        alert(error.response.data.message);
+      if (error.response && error.response.status === 404) {
+        alert("Uneli ste neispravnu lozinku");
       } else {
-        alert("Greška prilikom kreiranja korisnika.");
+        alert("Korisničo ime ili mejl su već zauzeti");
       }
     }
-  };
-
-  const createUser = async (userData) => {
-    return await api.post("users", userData);
   };
 
   return (
@@ -105,7 +110,11 @@ const Profile = () => {
           <button onClick={handleNavigate}>Nazad na igru</button>
         </div>
       )}
-      <div className="register-wrapper update-form-wrapper" ref={updateForm} onClick={handleDispose}>
+      <div
+        className="register-wrapper update-form-wrapper"
+        ref={updateForm}
+        onClick={handleDispose}
+      >
         <form onSubmit={handleSubmit} onClick={(e) => e.stopPropagation()}>
           <label htmlFor="ime">Ime:</label>
           <input
@@ -137,26 +146,24 @@ const Profile = () => {
               setUsername(e.target.value);
             }}
           />
-          <label htmlFor="lozinka">Stara lozinka:</label>
+          <label htmlFor="stara-lozinka">Stara lozinka:</label>
           <input
             type="password"
-            name="lozinka"
-            value={password}
+            name="stara-lozinka"
+            value={oldPassword}
             onChange={(e) => {
-              setPassword(e.target.value);
+              setOldPassword(e.target.value);
             }}
           />
-          {password.length > 0 && password.length < 8 && (
-            <p className="message">Lozinka mora da ima bar 8 karaktera.</p>
-          )}
-          <label htmlFor="ponovljena-lozinka">Nova lozinka:</label>
+          <label htmlFor="nova-lozinka">Nova lozinka:</label>
           <input
             type="password"
-            name="ponovljena-lozinka"
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            name="nova-lozinka"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
           />
-          {confirmPassword.length > 0 && !doPasswordsMatch && (
-            <p className="message">Lozinke se ne poklapaju.</p>
+          {newPassword.length > 0 && newPassword.length < 8 && (
+            <p className="message">Lozinka mora da ima bar 8 karaktera.</p>
           )}
           <button type="submit" disabled={!isFormValid}>
             PROMENI PODATKE
