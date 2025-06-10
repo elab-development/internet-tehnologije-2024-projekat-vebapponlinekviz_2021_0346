@@ -47,10 +47,12 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   try {
-    await User.deleteOne(req.body);
-    res.status(204).json({ message: "User deleted" });
+    let result = await User.deleteOne(req.body);
+    if(result.deletedCount > 0)
+      res.status(204).json({ message: "Uspešno brisanje korisnika" });
+    else res.status(404).json({ message: "Korisnik nije pronađen" });
   } catch (error) {
-    res.status(404).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 

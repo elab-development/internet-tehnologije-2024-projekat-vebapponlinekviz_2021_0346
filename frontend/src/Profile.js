@@ -18,6 +18,7 @@ const Profile = () => {
   const [newPassword, setNewPassword] = useState("");
 
   const updateForm = useRef();
+  const deleteForm = useRef();
 
   const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail);
   const isNewPasswordValid = newPassword.length >= 8;
@@ -37,6 +38,14 @@ const Profile = () => {
     setOldPassword("");
     setNewPassword("");
     updateForm.current.style.display = "none";
+  };
+
+  const handleDeleteUser = async () => {
+    await api.delete("/users", {
+      username: player.username,
+    });
+    deleteForm.current.style.display = "none";
+    setPlayer(null);
   };
 
   const updateUser = async (newData, oldUsername, oldPassword) => {
@@ -94,7 +103,14 @@ const Profile = () => {
               </p>
               <button onClick={handleDataChange}>Izmeni podatke</button>
             </div>
-            <button id="DELETE-DATA">Obriši podatke</button>
+            <button
+              id="DELETE-DATA"
+              onClick={() => {
+                deleteForm.current.style.display = "flex";
+              }}
+            >
+              Obriši podatke
+            </button>
           </div>
         </>
       ) : (
@@ -169,6 +185,17 @@ const Profile = () => {
             PROMENI PODATKE
           </button>
         </form>
+      </div>
+      <div className="confirm-delete-message" ref={deleteForm}>
+        <p>Da li ste sigurni?</p>
+        <button
+          onClick={() => {
+            deleteForm.current.style.display = "none";
+          }}
+        >
+          Odustani
+        </button>
+        <button onClick={handleDeleteUser}>Obriši</button>
       </div>
     </div>
   );

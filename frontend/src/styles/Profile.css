@@ -120,3 +120,35 @@
   background-image: none;
   display: none;
 }
+
+.profile-wrapper .confirm-delete-message {
+  z-index: 1000;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  background-color: #00296bbe;
+  background-image: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  display: none;
+}
+
+.profile-wrapper .confirm-delete-message button {
+  background-color: #93d9ff;
+  font-size:1.4rem;
+  color: #00296b;
+  margin-top: 0.7rem;
+  padding: 0.2rem 1rem;
+  transition: box-shadow 0.3s ease-in-out;
+  margin:1rem;
+}
+
+.profile-wrapper .confirm-delete-message button:hover {
+  box-shadow: 0 0 20px 6px #70f1fa;
+}
+
+.profile-wrapper .confirm-delete-message p {
+  color:#fff;
+  font-size: 1.6rem;
+}
