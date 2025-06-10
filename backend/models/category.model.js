@@ -13,10 +13,6 @@ const QuestionSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  points: {
-    type: Number,
-    required: true,
-  },
 });
 
 const CategorySchema = mongoose.Schema(
@@ -24,6 +20,10 @@ const CategorySchema = mongoose.Schema(
     title: {
       type: String,
       required: true,
+    },
+    number: {
+      type: Number,
+      required:true,
     },
     questions: {
       type: [QuestionSchema],

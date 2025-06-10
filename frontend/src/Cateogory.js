@@ -23,7 +23,7 @@ const Cateogory = ({category}) => {
       <div className="category-heading">
         <div className="category-name">
           <img src={smallIcons[category.number - 1]} alt="small-icon" />
-          <h2>{category.name}</h2>
+          <h2>{category.title}</h2>
         </div>
         <div className="category-timer" style={{backgroundColor: `${colors[category.number - 1]}`}}>29</div>
       </div>

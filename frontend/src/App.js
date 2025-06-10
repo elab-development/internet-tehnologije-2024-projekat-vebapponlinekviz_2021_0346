@@ -12,23 +12,7 @@ import { LoginContext } from "./context/LoginContext";
 
 function App() {
   const [player, setPlayer] = useState(null);
-
-  const category1 = {
-    number: 1,
-    name: "Kategorija 1",
-  };
-  const category2 = {
-    number: 2,
-    name: "Kategorija 2",
-  };
-  const category3 = {
-    number: 3,
-    name: "Kategorija 3",
-  };
-  const category4 = {
-    number: 4,
-    name: "Kategorija 4",
-  };
+  const [currentCategory, setCurrentCategory] = useState(null);
 
   return (
     <LoginContext.Provider value={{ player, setPlayer }}>
@@ -37,10 +21,16 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/home" element={<Home />} />
+          <Route
+            path="/home"
+            element={<Home setCurrentCategory={setCurrentCategory} />}
+          />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/game" element={<Cateogory category={category2} />} />
-          <Route path="/score" element={<Score category={category2} />} />
+          <Route
+            path="/game"
+            element={<Cateogory category={currentCategory} />}
+          />
+          <Route path="/score" element={<Score category={currentCategory} />} />
         </Routes>
       </Router>
     </LoginContext.Provider>

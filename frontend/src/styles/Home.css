@@ -67,19 +67,19 @@
     cursor:pointer;
 }
 
-.first-button {
+.button-0 {
 background-color: #FDB3E7;
 }
 
-.second-button {
+.button-1 {
     background-color: #A79FF1;
 }
 
-.third-button {
+.button-2 {
     background-color: #5CA1FC;
 }
 
-.fourth-button {
+.button-3 {
     background-color: #6051FF;
 }
 

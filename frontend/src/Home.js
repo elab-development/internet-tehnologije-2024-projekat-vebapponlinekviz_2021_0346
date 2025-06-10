@@ -1,18 +1,38 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import logo from "./media/Logo.png";
 import shark from "./media/Shark.png";
 import "./styles/Home.css";
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from "./context/LoginContext";
+import axios from "axios";
 
-const Home = () => {
+const Home = ({setCurrentCategory}) => {
   const navigate = useNavigate();
 
+  const api = axios.create({
+    baseURL: "http://localhost:2812/api/",
+  });
+
   const {player} = useContext(LoginContext);
+
+  const [allCategories, setAllCategories] = useState([]);
 
   const handleNavigate = ()=> {
     navigate("/profile");
   }
+
+  const getAllCategories = async ()=> {
+    return await api.get("/categories");
+  }
+
+  useEffect(()=>{
+    const fetchCategories = async ()=> {
+      let categories = await getAllCategories();
+      setAllCategories(categories.data);
+    }
+    fetchCategories();
+  },[])
+
   return (
     <div className="home-wrapper">
       <div className="left-wrapper">
@@ -30,12 +50,12 @@ const Home = () => {
           <img src={shark} alt="shark" />
         </div>
         <div className="category-button-wrapper">
-          <button className="category-button first-button">Kategorija 1</button>
-          <button className="category-button second-button">
-            Kategorija 2
-          </button>
-          <button className="category-button third-button">Kategorija 3</button>
-          <button className="category-button fourth-button">Kategorija 4</button>
+          {allCategories?.map((category, index)=> {
+            return <button key={index} className={"category-button " + "button-" + index} onClick={()=>{
+              setCurrentCategory(category);
+              navigate("/game");
+            }}>{category.title}</button>
+          })}
         </div>
       </div>
     </div>
