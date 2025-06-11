@@ -1,0 +1,126 @@
+import React, { useEffect, useState } from "react";
+import "./styles/Category.css";
+import C1big from "./media/C1big.png";
+import C2big from "./media/C2big.png";
+import C3big from "./media/C3big.png";
+import C4big from "./media/C4big.png";
+import C1small from "./media/C1small.png";
+import C2small from "./media/C2small.png";
+import C3small from "./media/C3small.png";
+import C4small from "./media/C4small.png";
+import C1bg from "./media/C1bg.png";
+import C2bg from "./media/C2bg.png";
+import C3bg from "./media/C3bg.png";
+import C4bg from "./media/C4bg.png";
+import { useNavigate } from "react-router-dom";
+
+const Category = ({ category }) => {
+  const bigIcons = [C1big, C2big, C3big, C4big];
+  const smallIcons = [C1small, C2small, C3small, C4small];
+  const backgrounds = [C1bg, C2bg, C3bg, C4bg];
+  const colors = ["#00c3ff", "#F3ADDF", "#FFA007", "#1F1A53"];
+  const defaultTimerValue = 10;
+  const defaultRoundsValue = 10;
+
+  const [roundQuestions, setRoundQuestions] = useState([]);
+  const [remainingTime, setRemainingTime] = useState(defaultTimerValue);
+  const [round, setRound] = useState(0);
+
+  const navigate = useNavigate();
+
+  const handleNavigate = ()=> {
+    navigate("/score");
+  }
+
+  const getRandomElements = (array, n) => {
+    if (n > array.length) {
+      throw new Error("n ne sme biti veće od dužine niza");
+    }
+
+    const shuffled = [...array]; // pravimo kopiju da ne menjamo original
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; // Fisher-Yates shuffle
+    }
+
+    return shuffled.slice(0, n);
+  };
+
+  useEffect(()=>{
+    if (round > 9) {
+      handleNavigate();
+    }
+  },[round])
+
+  useEffect(() => {
+    setRoundQuestions(getRandomElements(category.questions, defaultRoundsValue));
+  }, []);
+
+  useEffect(() => {
+    if (remainingTime === 0) {
+      if (round <= 9) {
+        setRound((prev)=> prev + 1);
+        setRemainingTime(defaultTimerValue);
+      }
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      setRemainingTime((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearTimeout(timeout);
+  }, [remainingTime]);
+
+  const handleAnswer = ()=> {
+    if (remainingTime === 0) return;
+    setRemainingTime(defaultTimerValue);
+    setRound((prev)=> prev + 1);
+  }
+
+  return (
+    <div
+      className="category-wrapper"
+      style={{ backgroundImage: `url(${backgrounds[category.number - 1]})` }}
+    >
+      <div className="category-heading">
+        <div className="category-name">
+          <img src={smallIcons[category.number - 1]} alt="small-icon" />
+          <h2>{category.title}</h2>
+        </div>
+        <div
+          className="category-timer"
+          style={{ backgroundColor: `${colors[category.number - 1]}` }}
+        >
+          {remainingTime}
+        </div>
+      </div>
+      <div className="category-questions">
+        <div
+          className="category-question"
+          style={{ backgroundColor: `${colors[category.number - 1]}` }}
+        >
+          {roundQuestions[round]?.question}
+        </div>
+        <div className="category-answers">
+          {roundQuestions[round]?.choices.map((choice, index) => {
+            return (
+              <button
+                key={index}
+                className={"answer " + "answer" + index + 1}
+                style={{ backgroundColor: `${colors[category.number - 1]}` }}
+                onClick={handleAnswer}
+                disabled={remainingTime === 0}
+              >
+                {choice}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+      <img src={bigIcons[category.number - 1]} alt="big-icon" id="BIG-ICON" />
+    </div>
+  );
+};
+
+export default Category;
