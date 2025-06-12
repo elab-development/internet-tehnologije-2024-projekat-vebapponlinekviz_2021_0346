@@ -12,7 +12,7 @@ import C1bg from "./media/C1bg.png";
 import C2bg from "./media/C2bg.png";
 import C3bg from "./media/C3bg.png";
 import C4bg from "./media/C4bg.png";
-import { useNavigate } from "react-router-dom";
+import Score from "./Score";
 
 const Category = ({ category }) => {
   const bigIcons = [C1big, C2big, C3big, C4big];
@@ -25,12 +25,8 @@ const Category = ({ category }) => {
   const [roundQuestions, setRoundQuestions] = useState([]);
   const [remainingTime, setRemainingTime] = useState(defaultTimerValue);
   const [round, setRound] = useState(0);
-
-  const navigate = useNavigate();
-
-  const handleNavigate = ()=> {
-    navigate("/score");
-  }
+  const [gameOver, setGameOver] = useState(false);
+  const [score, setScore] = useState(0);
 
   const getRandomElements = (array, n) => {
     if (n > array.length) {
@@ -46,20 +42,23 @@ const Category = ({ category }) => {
     return shuffled.slice(0, n);
   };
 
-  useEffect(()=>{
-    if (round > 9) {
-      handleNavigate();
+  useEffect(() => {
+    if (round > defaultRoundsValue - 1) {
+      console.log(score);
+      setGameOver(true);
     }
-  },[round])
+  }, [round]);
 
   useEffect(() => {
-    setRoundQuestions(getRandomElements(category.questions, defaultRoundsValue));
+    setRoundQuestions(
+      getRandomElements(category.questions, defaultRoundsValue)
+    );
   }, []);
 
   useEffect(() => {
     if (remainingTime === 0) {
-      if (round <= 9) {
-        setRound((prev)=> prev + 1);
+      if (round <= defaultRoundsValue - 1) {
+        setRound((prev) => prev + 1);
         setRemainingTime(defaultTimerValue);
       }
       return;
@@ -72,54 +71,73 @@ const Category = ({ category }) => {
     return () => clearTimeout(timeout);
   }, [remainingTime]);
 
-  const handleAnswer = ()=> {
+  const handleAnswer = (e) => {
     if (remainingTime === 0) return;
+    if(roundQuestions[round]?.answer === e.target.value ) {
+      setScore((prev)=>prev + remainingTime);
+      console.log(`Poeni u rundi ${round} : ${remainingTime} a ukupno: ${score} `);
+    }
     setRemainingTime(defaultTimerValue);
-    setRound((prev)=> prev + 1);
-  }
+    setRound((prev) => prev + 1);
+  };
 
   return (
-    <div
-      className="category-wrapper"
-      style={{ backgroundImage: `url(${backgrounds[category.number - 1]})` }}
-    >
-      <div className="category-heading">
-        <div className="category-name">
-          <img src={smallIcons[category.number - 1]} alt="small-icon" />
-          <h2>{category.title}</h2>
-        </div>
+    <>
+      {!gameOver ? (
         <div
-          className="category-timer"
-          style={{ backgroundColor: `${colors[category.number - 1]}` }}
+          className="category-wrapper"
+          style={{
+            backgroundImage: `url(${backgrounds[category.number - 1]})`,
+          }}
         >
-          {remainingTime}
+          <div className="category-heading">
+            <div className="category-name">
+              <img src={smallIcons[category.number - 1]} alt="small-icon" />
+              <h2>{category.title}</h2>
+            </div>
+            <div
+              className="category-timer"
+              style={{ backgroundColor: `${colors[category.number - 1]}` }}
+            >
+              {remainingTime}
+            </div>
+          </div>
+          <div className="category-questions">
+            <div
+              className="category-question"
+              style={{ backgroundColor: `${colors[category.number - 1]}` }}
+            >
+              {roundQuestions[round]?.question}
+            </div>
+            <div className="category-answers">
+              {roundQuestions[round]?.choices.map((choice, index) => {
+                return (
+                  <button
+                    key={index}
+                    className={"answer " + "answer" + index + 1}
+                    style={{
+                      backgroundColor: `${colors[category.number - 1]}`,
+                    }}
+                    onClick={handleAnswer}
+                    value={choice}
+                    disabled={remainingTime === 0}
+                  >
+                    {choice}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+          <img
+            src={bigIcons[category.number - 1]}
+            alt="big-icon"
+            id="BIG-ICON"
+          />
         </div>
-      </div>
-      <div className="category-questions">
-        <div
-          className="category-question"
-          style={{ backgroundColor: `${colors[category.number - 1]}` }}
-        >
-          {roundQuestions[round]?.question}
-        </div>
-        <div className="category-answers">
-          {roundQuestions[round]?.choices.map((choice, index) => {
-            return (
-              <button
-                key={index}
-                className={"answer " + "answer" + index + 1}
-                style={{ backgroundColor: `${colors[category.number - 1]}` }}
-                onClick={handleAnswer}
-                disabled={remainingTime === 0}
-              >
-                {choice}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-      <img src={bigIcons[category.number - 1]} alt="big-icon" id="BIG-ICON" />
-    </div>
+      ) : (
+        <Score category={category} scorePoints={score}/>
+      )}
+    </>
   );
 };
 

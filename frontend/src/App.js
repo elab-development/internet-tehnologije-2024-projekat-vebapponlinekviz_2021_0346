@@ -6,7 +6,6 @@ import Register from "./Register";
 import Home from "./Home";
 import Profile from "./Profile";
 import Category from "./Category";
-import Score from "./Score";
 import { useState } from "react";
 import { LoginContext } from "./context/LoginContext";
 
@@ -30,7 +29,6 @@ function App() {
             path="/game"
             element={<Category category={currentCategory} />}
           />
-          <Route path="/score" element={<Score category={currentCategory} />} />
         </Routes>
       </Router>
     </LoginContext.Provider>
