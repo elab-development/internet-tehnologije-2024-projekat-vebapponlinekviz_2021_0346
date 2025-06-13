@@ -7,5 +7,6 @@ router.get("/", gameController.readAllGames);
 router.get("/:id", gameController.readGame);
 router.patch("/:id", gameController.updateGame);
 router.delete("/:id", gameController.deleteGame);
+router.get("/best/:playerId", gameController.getPlayerBestScores);
 
 module.exports = router;

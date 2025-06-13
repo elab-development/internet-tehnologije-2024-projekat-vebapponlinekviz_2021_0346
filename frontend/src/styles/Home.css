@@ -97,8 +97,12 @@ background-color: #FDB3E7;
     margin-left:5vw;
     font-size: 1.6rem;
     background-color: #00C3FF;
-    padding: 1rem 9rem;
+    padding: 1rem 5rem;
     color:#fff;
+}
+
+.points a{
+    color: #00fffb;
 }
 
 .left-wrapper img {
