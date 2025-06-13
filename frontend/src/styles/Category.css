@@ -78,9 +78,23 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.category-answers button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  filter: grayscale(70%);
+  transform: none;
+  box-shadow: none;
+}
+
 .answer:hover {
   transform: translateY(-3px) scale(1.03);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.correct-answer {
+  background-color: #00ff00 !important; 
+  opacity: 1 !important;
+  filter: none !important;
 }
 
 #BIG-ICON {
