@@ -24,9 +24,17 @@ const Category = ({ category }) => {
 
   const [roundQuestions, setRoundQuestions] = useState([]);
   const [remainingTime, setRemainingTime] = useState(defaultTimerValue);
+  const [stopTimer, setStopTimer] = useState(false);
   const [round, setRound] = useState(0);
   const [gameOver, setGameOver] = useState(false);
+  const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
+  const [buttonsDisabled, setButtonsDisabled] = useState(false);
   const [score, setScore] = useState(0);
+
+  const nextRound = () => {
+    setRound((prev) => prev + 1);
+    setRemainingTime(defaultTimerValue);
+  };
 
   const getRandomElements = (array, n) => {
     if (n > array.length) {
@@ -57,10 +65,15 @@ const Category = ({ category }) => {
 
   useEffect(() => {
     if (remainingTime === 0) {
-      if (round <= defaultRoundsValue - 1) {
-        setRound((prev) => prev + 1);
-        setRemainingTime(defaultTimerValue);
-      }
+      setButtonsDisabled(true);
+      setShowCorrectAnswer(true);
+
+      setTimeout(() => {
+        setShowCorrectAnswer(false);
+        nextRound();
+        setButtonsDisabled(false);
+      }, 1000);
+
       return;
     }
 
@@ -72,13 +85,23 @@ const Category = ({ category }) => {
   }, [remainingTime]);
 
   const handleAnswer = (e) => {
-    if (remainingTime === 0) return;
-    if(roundQuestions[round]?.answer === e.target.value ) {
-      setScore((prev)=>prev + remainingTime);
-      console.log(`Poeni u rundi ${round} : ${remainingTime} a ukupno: ${score} `);
+    if (remainingTime === 0 || buttonsDisabled) return;
+
+    const currentTime = remainingTime;
+    setButtonsDisabled(true); // Disable odmah
+
+    if (roundQuestions[round]?.answer === e.target.value) {
+      setScore((prev) => prev + currentTime);
+      console.log(`Poeni u rundi ${round} : ${currentTime} a ukupno: ${score}`);
     }
-    setRemainingTime(defaultTimerValue);
-    setRound((prev) => prev + 1);
+
+    setShowCorrectAnswer(true);
+
+    setTimeout(() => {
+      setShowCorrectAnswer(false);
+      nextRound();
+      setButtonsDisabled(false); // enable dugmad tek nakon promene runde
+    }, 1000);
   };
 
   return (
@@ -114,13 +137,21 @@ const Category = ({ category }) => {
                 return (
                   <button
                     key={index}
-                    className={"answer " + "answer" + index + 1}
+                    className={
+                      "answer " +
+                      "answer" +
+                      (index + 1) +
+                      (showCorrectAnswer &&
+                      choice === roundQuestions[round]?.answer
+                        ? " correct-answer"
+                        : "")
+                    }
                     style={{
-                      backgroundColor: `${colors[category.number - 1]}`,
+                      backgroundColor: colors[category.number - 1],
                     }}
                     onClick={handleAnswer}
                     value={choice}
-                    disabled={remainingTime === 0}
+                    disabled={buttonsDisabled}
                   >
                     {choice}
                   </button>
@@ -135,7 +166,7 @@ const Category = ({ category }) => {
           />
         </div>
       ) : (
-        <Score category={category} scorePoints={score}/>
+        <Score category={category} scorePoints={score} />
       )}
     </>
   );
