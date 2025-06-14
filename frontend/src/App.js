@@ -8,6 +8,7 @@ import Profile from "./Profile";
 import Category from "./Category";
 import { useState } from "react";
 import { LoginContext } from "./context/LoginContext";
+import Stats from "./Stats";
 
 function App() {
   const [player, setPlayer] = useState(null);
@@ -29,6 +30,7 @@ function App() {
             path="/game"
             element={<Category category={currentCategory} />}
           />
+          <Route path="/stats" element={<Stats />} />
         </Routes>
       </Router>
     </LoginContext.Provider>
