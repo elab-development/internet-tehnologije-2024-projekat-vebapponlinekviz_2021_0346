@@ -41,16 +41,19 @@ const Profile = () => {
   };
 
   const handleDeleteUser = async () => {
-    await api.delete("/users", {
-      username: player.username,
-    });
-    deleteForm.current.style.display = "none";
-    setPlayer(null);
+    try {
+      await api.delete("/users", { data: { username: player.username } });
+      deleteForm.current.style.display = "none";
+      setPlayer(null);
+    } catch (e) {
+      alert("Nije moguće obrisati korisnika");
+    }
   };
 
   const updateUser = async (newData, oldUsername, oldPassword) => {
     return await api.patch("/users", {
-      filter: { username: oldUsername, password: oldPassword },
+      filter: { username: oldUsername },
+      oldPassword: oldPassword,
       update: newData,
     });
   };
