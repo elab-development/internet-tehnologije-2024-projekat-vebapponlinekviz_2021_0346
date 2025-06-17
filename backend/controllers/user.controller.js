@@ -139,10 +139,22 @@ const updateUser = async (req, res) => {
   }
 };
 
+// const deleteUser = async (req, res) => {
+//   try {
+//     let result = await User.deleteOne(req.body);
+//     if (result.deletedCount > 0)
+//       res.status(204).json({ message: "Uspešno brisanje korisnika" });
+//     else res.status(404).json({ message: "Korisnik nije pronađen" });
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
+
 const deleteUser = async (req, res) => {
   try {
-    let result = await User.deleteOne(req.body);
-    if (result.deletedCount > 0)
+    let {id} = req.params;
+    let result = await User.findByIdAndDelete(id);
+    if (result)
       res.status(204).json({ message: "Uspešno brisanje korisnika" });
     else res.status(404).json({ message: "Korisnik nije pronađen" });
   } catch (error) {

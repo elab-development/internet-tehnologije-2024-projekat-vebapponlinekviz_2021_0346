@@ -27,12 +27,12 @@
   cursor:pointer;
 }
 
-.profile-wrapper-left .profile-points {
+.profile-wrapper-left .profile-support {
   align-self: flex-start;
   margin-left: 20%;
-  padding: 1rem 9rem;
+  max-width: 30vw;
+  padding: 1rem 4rem;
   font-size: 1.6rem;
-  white-space: nowrap;
   background-color: #00c3ff;
   color: #fff;
 }

@@ -42,7 +42,8 @@ const Profile = () => {
 
   const handleDeleteUser = async () => {
     try {
-      await api.delete("/users", { data: { username: player.username } });
+      // await api.delete("/users", { data: { username: player.username } });
+      await api.delete(`/users/${player._id}`);
       deleteForm.current.style.display = "none";
       setPlayer(null);
     } catch (e) {
@@ -86,11 +87,9 @@ const Profile = () => {
         <>
           <div className="profile-wrapper-left">
             <img src={logo} alt="logo" onClick={handleNavigate} />
-            <div className="profile-points">
-              <p>Kategorija 1: {}</p>
-              <p>Kategorija 2: {}</p>
-              <p>Kategorija 3: {}</p>
-              <p>Kategorija 4: {}</p>
+            <div className="profile-support">
+              Ukoliko primetite neki problem sa igrom, pišite na mail:
+              admin.quizwave@gmail.com
             </div>
           </div>
           <div className="profile-wrapper-right">
