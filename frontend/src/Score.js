@@ -36,7 +36,6 @@ const Score = ({ category, scorePoints }) => {
         player: player._id,
         score: scorePoints,
       };
-      console.log(game);
       return await api.post("/games", game);
     } catch (e) {
       console.error("Greška prilikom kreiranja igre:", e.message);

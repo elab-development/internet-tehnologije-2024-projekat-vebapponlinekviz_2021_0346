@@ -29,7 +29,7 @@
   justify-content: center;
   align-items: center;
   margin-right: 5rem;
-  gap:1rem;
+  gap: 1rem;
 }
 
 table {
@@ -93,7 +93,7 @@ select option {
 .stats-table-control {
   display: flex;
   flex-direction: row;
-  gap:1rem;
+  gap: 1rem;
 }
 
 .stats-table-control button {
@@ -104,4 +104,10 @@ select option {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   padding: 0.25rem;
   font-size: 1.8rem;
+}
+
+.stats-pages {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #fff;
 }

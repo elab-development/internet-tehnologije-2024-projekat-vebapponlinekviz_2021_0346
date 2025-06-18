@@ -35,7 +35,6 @@ const Home = ({ setCurrentCategory }) => {
       if (player) {
         let scores = await getBestScoresByCategory(player._id);
         setBestScores(scores.data);
-        console.log("Skor: " + scores.data);
       }
     };
     getScores();

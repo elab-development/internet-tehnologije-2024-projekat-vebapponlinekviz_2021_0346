@@ -102,6 +102,97 @@ const getPlayerBestScores = async (req, res) => {
   }
 };
 
+const getAdminStats = async (req, res) => {
+  try {
+    const totalPlayers = await User.countDocuments();
+    const totalGames = await Game.countDocuments();
+
+    const bestByCategory = await Category.aggregate([
+      {
+        $lookup: {
+          from: "games",
+          let: { categoryId: "$_id" },
+          pipeline: [
+            { $match: { $expr: { $eq: ["$category", "$$categoryId"] } } },
+            { $sort: { score: -1 } },
+            { $limit: 1 },
+            {
+              $lookup: {
+                from: "users",
+                localField: "player",
+                foreignField: "_id",
+                as: "playerData",
+              },
+            },
+            {
+              $unwind: {
+                path: "$playerData",
+                preserveNullAndEmptyArrays: true,
+              },
+            },
+            {
+              $project: {
+                score: 1,
+                username: "$playerData.username",
+              },
+            },
+          ],
+          as: "bestGame",
+        },
+      },
+      {
+        $project: {
+          category: "$title",
+          bestGame: { $arrayElemAt: ["$bestGame", 0] },
+        },
+      },
+      {
+        $project: {
+          category: 1,
+          username: "$bestGame.username",
+          score: { $ifNull: ["$bestGame.score", 0] },
+        },
+      },
+    ]);
+
+    res.status(200).json({ totalPlayers, totalGames, bestByCategory });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const getPaginatedGames = async (req, res) => {
+   try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = 4;
+    const skip = (page - 1) * limit;
+    const category = req.query.category;
+
+    const query = {};
+    if (category) {
+      query.category = category;
+    }
+
+    const totalGames = await Game.countDocuments(query);
+
+    const games = await Game.find(query)
+      .populate("player", "username")
+      .populate("category", "title")
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    res.json({
+      games,
+      totalGames,
+      totalPages: Math.ceil(totalGames / limit),
+      currentPage: page,
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 const gameController = {
   createGame,
   readAllGames,
@@ -109,6 +200,8 @@ const gameController = {
   updateGame,
   deleteGame,
   getPlayerBestScores,
+  getAdminStats,
+  getPaginatedGames,
 };
 
 module.exports = gameController;

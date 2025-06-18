@@ -9,6 +9,7 @@ import Category from "./Category";
 import { useState } from "react";
 import { LoginContext } from "./context/LoginContext";
 import Stats from "./Stats";
+import AdminPage from "./AdminPage";
 
 function App() {
   const [player, setPlayer] = useState(null);
@@ -31,6 +32,7 @@ function App() {
             element={<Category category={currentCategory} />}
           />
           <Route path="/stats" element={<Stats />} />
+          <Route path="/admin" element={<AdminPage/>}/>
         </Routes>
       </Router>
     </LoginContext.Provider>

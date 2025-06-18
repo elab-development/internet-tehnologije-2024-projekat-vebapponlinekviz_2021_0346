@@ -1,0 +1,70 @@
+.admin-wrapper {
+  background-image: url("../media/HomeBg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.admin-left-wrapper {
+  width: 50vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.admin-left-wrapper img {
+  max-width: 35vw;
+  margin-left: 20vw;
+  margin-top: 5vh;
+}
+
+.admin-all-stats {
+  margin-bottom: 45vh;
+  align-self: flex-start;
+  margin-left: 5vw;
+  font-size: 1.4rem;
+  background-color: #00c3ff;
+  padding: 1rem 5rem;
+  color: #fff;
+}
+
+.admin-right-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5rem;
+  gap: 1rem;
+}
+
+.admin-games-table button {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  padding: 0.25rem;
+  font-size: 1rem;
+  margin-right: 0.5rem;
+}
+
+.admin-score-input {
+  background-color: transparent;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  font-size: 1.25rem;
+  max-width: 3rem;
+  text-align: center;
+  color: #fff;
+}
+
+.admin-score-input:focus-visible {
+  outline-color: #00c3ff;
+}
