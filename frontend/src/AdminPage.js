@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import logo from "./media/Logo.png";
 import "./styles/AdminPage.css";
 import axios from "axios";
+import { LoginContext } from "./context/LoginContext";
+import Page401 from "./errorPages/Page401";
 
 const AdminPage = () => {
   const [games, setGames] = useState([]);
@@ -11,6 +13,8 @@ const AdminPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [editingGameId, setEditingGameId] = useState(null);
   const [editedScore, setEditedScore] = useState("");
+
+  const {player} = useContext(LoginContext);
 
   const [stats, setStats] = useState({
     totalPlayers: 0,
@@ -83,6 +87,10 @@ const AdminPage = () => {
       alert("Neuspešna izmena rezultata");
     }
   };
+
+  if (!player?.admin) {
+    return <Page401/>
+  }
 
   return (
     <div className="admin-wrapper">

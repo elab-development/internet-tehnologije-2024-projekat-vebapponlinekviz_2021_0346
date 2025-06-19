@@ -17,8 +17,8 @@ const LoginPage = () => {
     baseURL: "http://localhost:2812/api/",
   });
 
-  const handleNavigate = () => {
-    navigate("/home");
+  const handleNavigate = (route) => {
+    navigate(route);
   };
 
   const loginPlayer = async (userData) => {
@@ -31,7 +31,11 @@ const LoginPage = () => {
     try {
       let loggedInPlayer = await loginPlayer(player);
       setPlayer(loggedInPlayer.data);
-      handleNavigate();
+      if (loggedInPlayer.data?.admin) {
+        handleNavigate("/admin");
+      } else {
+        handleNavigate("/home");
+      }
     } catch (error) {
       if (error.response && error.response.status === 404) {
         alert(error.response.data.message);

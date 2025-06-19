@@ -10,6 +10,7 @@ import { useState } from "react";
 import { LoginContext } from "./context/LoginContext";
 import Stats from "./Stats";
 import AdminPage from "./AdminPage";
+import Page404 from "./errorPages/Page404";
 
 function App() {
   const [player, setPlayer] = useState(null);
@@ -33,6 +34,7 @@ function App() {
           />
           <Route path="/stats" element={<Stats />} />
           <Route path="/admin" element={<AdminPage/>}/>
+          <Route path="*" element={<Page404/>} />
         </Routes>
       </Router>
     </LoginContext.Provider>

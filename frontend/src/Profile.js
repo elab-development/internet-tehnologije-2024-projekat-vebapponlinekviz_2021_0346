@@ -51,6 +51,11 @@ const Profile = () => {
     }
   };
 
+  const handleLogout = ()=>{
+    setPlayer(null);
+    navigate("/");
+  }
+
   const updateUser = async (newData, oldUsername, oldPassword) => {
     return await api.patch("/users", {
       filter: { username: oldUsername },
@@ -103,7 +108,10 @@ const Profile = () => {
               <p>
                 Korisničko ime: <span>{player.username}</span>
               </p>
-              <button onClick={handleDataChange}>Izmeni podatke</button>
+              <div className="profile-user-data-buttons">
+                <button onClick={handleLogout}>Odjavi se</button>
+                <button onClick={handleDataChange}>Izmeni podatke</button>
+              </div>
             </div>
             <button
               id="DELETE-DATA"

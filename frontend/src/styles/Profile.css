@@ -56,11 +56,18 @@
   color: #00296b;
 }
 
+.profile-user-data-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap:1rem;
+  margin-top: 1rem;
+}
+
 .profile-wrapper-right .profile-user-data button {
   background-color: #ffffffb7;
   color: #00296b;
   text-align: center;
-  margin: 1rem auto;
   display: block;
   font-size: 1.4rem;
   padding: 0 2rem;

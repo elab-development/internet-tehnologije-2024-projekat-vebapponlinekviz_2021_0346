@@ -18,6 +18,10 @@ const UserSchema = mongoose.Schema(
     password: {
       type: String,
     },
+    admin: {
+      type: Boolean,
+      default:false
+    }
   },
   {
     timestamps: true,
