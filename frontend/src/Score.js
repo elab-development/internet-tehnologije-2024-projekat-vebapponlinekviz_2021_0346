@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./styles/Score.css";
 import C1big from "./media/C1big.png";
 import C2big from "./media/C2big.png";
@@ -24,54 +24,70 @@ const Score = ({ category, scorePoints }) => {
   const navigate = useNavigate();
   const { player } = useContext(LoginContext);
 
+  const [funFact, setFunFact] = useState("");
+
   const api = axios.create({
     baseURL: "http://localhost:2812/api/",
   });
 
-  useEffect(() => {
-  const createGame = async () => {
-    try {
-      let game = {
-        category: category._id,
-        player: player._id,
-        score: scorePoints,
-      };
-      return await api.post("/games", game);
-    } catch (e) {
-      console.error("Greška prilikom kreiranja igre:", e.message);
-    }
+  const fetchFunFactApi = async () => {
+    fetch("https://uselessfacts.jsph.pl/api/v2/facts/random")
+      .then((res) => res.json())
+      .then((data) => setFunFact(data.text));
   };
 
-  if (player) {
-    createGame();
-  }
-}, [player, category]);
+  useEffect(() => {
+    const createGame = async () => {
+      try {
+        let game = {
+          category: category._id,
+          player: player._id,
+          score: scorePoints,
+        };
+        return await api.post("/games", game);
+      } catch (e) {
+        console.error("Greška prilikom kreiranja igre:", e.message);
+      }
+    };
+
+    if (player) {
+      createGame();
+    }
+  }, [player, category]);
+
+  useEffect(() => {
+    fetchFunFactApi();
+  }, []);
 
   const handleNavigate = () => {
     navigate("/home");
   };
+
+
   return (
     <div
       className="score-wrapper"
-      style={{ backgroundImage: `url(${backgrounds[category.number - 1]})` }}
+      style={{ backgroundImage: `url(${backgrounds[category?.number - 1]})` }}
     >
       <div className="score-heading">
-        <img src={smallIcons[category.number - 1]} alt="small-icon" />
-        <h2>{category.name}</h2>
+        <img src={smallIcons[category?.number - 1]} alt="small-icon" />
+        <h2>{category?.name}</h2>
       </div>
       <div
         className="score-points"
-        style={{ backgroundColor: `${colors[category.number - 1]}` }}
+        style={{ backgroundColor: `${colors[category?.number - 1]}` }}
       >
-        Rezultat: {scorePoints}
+        <h3>Rezultat: {scorePoints}</h3>
+        <p>Random fun fact:</p>
+        <p>{funFact}</p>
       </div>
       <button
-        style={{ backgroundColor: `${colors[category.number - 1]}` }}
+        style={{ backgroundColor: `${colors[category?.number - 1]}` }}
         onClick={handleNavigate}
       >
         Nazad na igru
       </button>
-      <img src={bigIcons[category.number - 1]} alt="big-icon" id="BIG-ICON" />
+      <img src={bigIcons[category?.number - 1]} alt="big-icon" id="BIG-ICON" />
     </div>
   );
 };
