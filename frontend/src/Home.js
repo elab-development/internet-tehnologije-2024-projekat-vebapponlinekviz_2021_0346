@@ -73,8 +73,8 @@ const Home = ({ setCurrentCategory }) => {
   const [temperature, setTemperature] = useState(null);
   const [location, setLocation] = useState(null);
 
-  const handleNavigate = () => {
-    navigate("/profile");
+  const handleNavigate = (route) => {
+    navigate(route);
   };
 
   const getAllCategories = async () => {
@@ -124,11 +124,14 @@ const Home = ({ setCurrentCategory }) => {
         <img src={logo} alt="logo" />
         <div className="points">
           {player ? (
-            bestScores?.map((item, index) => (
-              <p key={index}>
-                {item.categoryTitle}: {item.score}
-              </p>
-            ))
+            <>
+              {bestScores?.map((item, index) => (
+                <p key={index}>
+                  {item.categoryTitle}: {item.score}
+                </p>
+              ))}
+              <button className="home-stats-button" onClick={()=>handleNavigate("/stats")}>Moja statistika</button>
+            </>
           ) : (
             <>
               <p>
@@ -142,7 +145,7 @@ const Home = ({ setCurrentCategory }) => {
         </div>
       </div>
       <div className="right-wrapper">
-        <div className="profile" onClick={handleNavigate}>
+        <div className="profile" onClick={()=>handleNavigate("/profile")}>
           <div className="weather-info">
             <p>{weatherIcon}</p>
             <p>{temperature}°C</p>

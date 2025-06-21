@@ -162,7 +162,7 @@ const getAdminStats = async (req, res) => {
 };
 
 const getPaginatedGames = async (req, res) => {
-   try {
+  try {
     const page = parseInt(req.query.page) || 1;
     const limit = 4;
     const skip = (page - 1) * limit;
@@ -193,6 +193,46 @@ const getPaginatedGames = async (req, res) => {
   }
 };
 
+const getGamesCountByCategoryForPlayer = async (req, res) => {
+  try {
+    const { playerId } = req.params;
+
+    const categories = await Category.find();
+
+    // Grupisanje igara po kategoriji za datog igrača
+    const gameCounts = await Game.aggregate([
+      {
+        $match: {
+          player: new mongoose.Types.ObjectId(playerId),
+        },
+      },
+      {
+        $group: {
+          _id: "$category",
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+
+    // Mapiranje rezultata u Map za lak pristup
+    const countMap = new Map();
+    gameCounts.forEach((item) => {
+      countMap.set(item._id.toString(), item.count);
+    });
+
+    // Kombinacija svih kategorija sa brojem igara (ili 0 ako nema)
+    const result = categories.map((category) => ({
+      categoryId: category._id,
+      categoryTitle: category.title,
+      gamesPlayed: countMap.get(category._id.toString()) || 0,
+    }));
+
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 const gameController = {
   createGame,
   readAllGames,
@@ -202,6 +242,7 @@ const gameController = {
   getPlayerBestScores,
   getAdminStats,
   getPaginatedGames,
+  getGamesCountByCategoryForPlayer
 };
 
 module.exports = gameController;

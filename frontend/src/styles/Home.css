@@ -49,7 +49,7 @@
   align-self: flex-end;
 }
 .weather-info #cityName {
-  margin-left:1rem;
+  margin-left: 1rem;
 }
 
 .category-button-wrapper {
@@ -120,4 +120,17 @@
   max-width: 35vw;
   margin-left: 20vw;
   margin-top: 5vh;
+}
+
+.home-stats-button {
+  padding: 0 1rem;
+  font-size: 1.5rem;
+  color: #00c3ff;
+  display: block;
+  margin: 1rem auto;
+  transition: all 0.3s ease;
+}
+
+.home-stats-button:hover {
+  box-shadow: 0 0 20px 6px #ffffff;
 }

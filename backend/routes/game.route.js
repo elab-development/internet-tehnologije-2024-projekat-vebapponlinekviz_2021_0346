@@ -10,5 +10,6 @@ router.delete("/:id", gameController.deleteGame);
 router.get("/best/:playerId", gameController.getPlayerBestScores);
 router.get("/admin/stats", gameController.getAdminStats);
 router.get("/admin/paginatedGames", gameController.getPaginatedGames);
+router.get("/:playerId/stats/gameCount", gameController.getGamesCountByCategoryForPlayer);
 
 module.exports = router;
