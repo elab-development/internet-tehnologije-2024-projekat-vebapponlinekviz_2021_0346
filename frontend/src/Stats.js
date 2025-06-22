@@ -40,9 +40,15 @@ const options = {
 
 const Stats = () => {
   const [chartData, setChartData] = useState([["Kategorija", "Broj partija"]]);
+  const [allGames, setAllGames] = useState([]);
+  const [summary, setSummary] = useState({
+    totalGames: 0,
+    categoryStats: [],
+    bestCategory: "",
+  });
 
   const { player } = useContext(LoginContext);
-  
+
   const navigate = useNavigate();
 
   const api = axios.create({
@@ -50,20 +56,15 @@ const Stats = () => {
   });
 
   const handleNavigate = (route) => {
-    navigate(route)
-  }
+    navigate(route);
+  };
 
   const getGamesCount = async () => {
     try {
-      console.log("Uslo u metodu");
-      console.log(player);
       if (!player?._id) return;
-
-      console.log("desilo se");
 
       const res = await api.get(`/games/${player._id}/stats/gameCount`);
       const data = res.data;
-      console.log(data);
 
       const formatted = [["Kategorija", "Broj partija"]];
       data.forEach((item) => {
@@ -76,14 +77,103 @@ const Stats = () => {
     }
   };
 
+  const getAllGames = async () => {
+    try {
+      const res = await api.get(`games/${player._id}/stats/allGames`);
+      console.log(res.data);
+      setAllGames(res.data);
+    } catch (e) {
+      console.error("Greška prilikom dohvatanja igara:", e);
+    }
+  };
+
+  const calculateSummary = () => {
+    let categories = [
+      "Zanimljiva geografija",
+      "Biljke i životinje",
+      "Istorija",
+      "Sport",
+    ];
+
+    const getAverageScore = (categoryTitle) => {
+      let filteredGames = allGames.filter(
+        (game) => game.categoryTitle === categoryTitle
+      );
+      let sum = 0;
+      for (let game of filteredGames) {
+        sum += game.score;
+      }
+      return sum / filteredGames.length;
+    };
+
+    const populateCategoryStats = () => {
+      for (let category of categories) {
+        categoryStats.push({ [category]: getAverageScore(category) });
+      }
+    };
+
+    const calculateBestCategory = () => {
+      let max = 0;
+      let bestCategory = "";
+      for (let game of allGames) {
+        if (game.score > max) {
+          max = game.score;
+          bestCategory = game.categoryTitle;
+        }
+      }
+      return bestCategory;
+    };
+
+    let categoryStats = [];
+    populateCategoryStats();
+    let totalGames = allGames.length;
+    let bestCategory = calculateBestCategory();
+
+    setSummary({
+      totalGames,
+      categoryStats,
+      bestCategory,
+    });
+  };
+
   useEffect(() => {
     getGamesCount();
+    getAllGames();
   }, []);
+
+  useEffect(() => {
+    if (allGames && chartData) {
+      calculateSummary();
+    }
+    console.log(summary);
+  }, [allGames, chartData]);
 
   return (
     <div className="stats-wrapper">
+      <div className="stats-print-container">
+        <h2>🧾 Statistika korisnika</h2>
+        <p>
+          <strong>Ukupan broj partija:</strong> {summary.totalGames}
+        </p>
+        <h3>📊 Prosečni rezultati po kategoriji:</h3>
+        <ul>
+          {summary.categoryStats.map((stat, index) => {
+            const category = Object.keys(stat)[0];
+            const score = stat[category];
+            return (
+              <li key={index}>
+                {category}: {score.toFixed(1)}
+              </li>
+            );
+          })}
+        </ul>
+        <p>
+          <strong>🏆 Najbolja kategorija:</strong> {summary.bestCategory}
+        </p>
+      </div>
+
       <div className="stats-left-wrapper">
-        <img src={logo} alt="logo" onClick={()=> handleNavigate("/home")}/>
+        <img src={logo} alt="logo" onClick={() => handleNavigate("/home")} />
         <Chart
           chartType="PieChart"
           data={chartData}
@@ -93,46 +183,19 @@ const Stats = () => {
         />
       </div>
       <div className="stats-right-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>Kategorija</th>
-              <th>Rezultat</th>
-              <th>Datum</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Geografija</td>
-              <td>45</td>
-              <td>{new Date().toLocaleDateString()}</td>
-            </tr>
-            <tr>
-              <td>Geografija</td>
-              <td>45</td>
-              <td>{new Date().toLocaleDateString()}</td>
-            </tr>
-            <tr>
-              <td>Geografija</td>
-              <td>45</td>
-              <td>{new Date().toLocaleDateString()}</td>
-            </tr>
-            <tr>
-              <td>Geografija</td>
-              <td>45</td>
-              <td>{new Date().toLocaleDateString()}</td>
-            </tr>
-          </tbody>
-        </table>
-        <div className="stats-table-control">
-          <select>
-            <option value="">Filter</option>
-            <option value="1">Kategorija 1</option>
-          </select>
-          <button>{"<"}</button>
-          <button>{">"}</button>
+        <div className="games-list">
+          {allGames.map((game, index) => (
+            <div key={index} className="game-item">
+              <p>Kategorija: {game.categoryTitle}</p>
+              <p>Rezultat: {game.score}</p>
+              <p>Datum: {new Date(game.playedAt).toLocaleDateString()}</p>
+            </div>
+          ))}
         </div>
       </div>
+      <button className="pdf-button">
+        Preuzmi PDF statistike
+      </button>
     </div>
   );
 };

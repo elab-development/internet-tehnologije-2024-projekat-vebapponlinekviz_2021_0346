@@ -233,6 +233,27 @@ const getGamesCountByCategoryForPlayer = async (req, res) => {
   }
 };
 
+const readAllGamesByPlayer = async (req, res) => {
+  try {
+    const { playerId } = req.params;
+
+    const games = await Game.find({ player: playerId })
+      .populate("category", "title") // Uzimamo samo title iz kategorije
+      .sort({ createdAt: -1 }); // Najnovije igre prve
+
+    const result = games.map((game) => ({
+      categoryTitle: game.category.title,
+      score: game.score,
+      playedAt: game.createdAt,
+    }));
+
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
 const gameController = {
   createGame,
   readAllGames,
@@ -242,7 +263,8 @@ const gameController = {
   getPlayerBestScores,
   getAdminStats,
   getPaginatedGames,
-  getGamesCountByCategoryForPlayer
+  getGamesCountByCategoryForPlayer,
+  readAllGamesByPlayer
 };
 
 module.exports = gameController;

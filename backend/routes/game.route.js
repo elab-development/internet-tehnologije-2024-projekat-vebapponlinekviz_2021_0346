@@ -11,5 +11,6 @@ router.get("/best/:playerId", gameController.getPlayerBestScores);
 router.get("/admin/stats", gameController.getAdminStats);
 router.get("/admin/paginatedGames", gameController.getPaginatedGames);
 router.get("/:playerId/stats/gameCount", gameController.getGamesCountByCategoryForPlayer);
+router.get("/:playerId/stats/allGames", gameController.readAllGamesByPlayer);
 
 module.exports = router;
