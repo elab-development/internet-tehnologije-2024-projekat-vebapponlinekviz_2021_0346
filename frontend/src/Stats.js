@@ -1,10 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 import { Chart } from "react-google-charts";
 import logo from "./media/Logo.png";
 import "./styles/Stats.css";
 import { LoginContext } from "./context/LoginContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Page401 from "./errorPages/Page401.js";
 
 const options = {
   title: "Broj odigranih partija po kategoriji",
@@ -39,6 +42,11 @@ const options = {
 };
 
 const Stats = () => {
+  const pdfRef = useRef();
+
+  const chartRef = useRef(null);
+  const [chartImage, setChartImage] = useState(null);
+
   const [chartData, setChartData] = useState([["Kategorija", "Broj partija"]]);
   const [allGames, setAllGames] = useState([]);
   const [summary, setSummary] = useState({
@@ -136,6 +144,62 @@ const Stats = () => {
     });
   };
 
+  const downloadPDF = () => {
+  const input = pdfRef.current;
+
+  // Sačuvaj originalne stilove tela stranice
+  const originalOverflow = document.body.style.overflow;
+  const originalHtmlOverflow = document.documentElement.style.overflow;
+  const originalHtmlHeight = document.documentElement.style.height;
+  const originalBodyHeight = document.body.style.height;
+
+  // Omogući prikaz celog sadržaja
+  document.body.style.overflow = "visible";
+  document.documentElement.style.overflow = "visible";
+  document.body.style.height = "auto";
+  document.documentElement.style.height = "auto";
+
+  input.style.display = "block";
+
+  html2canvas(input, {
+    scale: 3,
+    useCORS: true,
+    windowWidth: input.scrollWidth, // ključno!
+    windowHeight: input.scrollHeight,
+    backgroundColor: null,
+  }).then((canvas) => {
+    const imgData = canvas.toDataURL("image/png");
+    const pdf = new jsPDF("p", "mm", "a4");
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = pdf.internal.pageSize.getHeight();
+
+    const imgWidth = pdfWidth;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+    let position = 0;
+    pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+
+    let remainingHeight = imgHeight - pdfHeight;
+    while (remainingHeight > -10) {
+      position -= pdfHeight;
+      pdf.addPage();
+      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+      remainingHeight -= pdfHeight;
+    }
+
+    pdf.save(`${player.username}.pdf`);
+
+    // Vrati stilove na prethodno stanje
+    document.body.style.overflow = originalOverflow;
+    document.documentElement.style.overflow = originalHtmlOverflow;
+    document.body.style.height = originalBodyHeight;
+    document.documentElement.style.height = originalHtmlHeight;
+    input.style.display = "none";
+  });
+};
+
+
+
   useEffect(() => {
     getGamesCount();
     getAllGames();
@@ -148,28 +212,57 @@ const Stats = () => {
     console.log(summary);
   }, [allGames, chartData]);
 
+  if(!player){
+    return <Page401/>
+  }
+
   return (
     <div className="stats-wrapper">
-      <div className="stats-print-container">
-        <h2>🧾 Statistika korisnika</h2>
-        <p>
-          <strong>Ukupan broj partija:</strong> {summary.totalGames}
-        </p>
-        <h3>📊 Prosečni rezultati po kategoriji:</h3>
-        <ul>
-          {summary.categoryStats.map((stat, index) => {
-            const category = Object.keys(stat)[0];
-            const score = stat[category];
-            return (
-              <li key={index}>
-                {category}: {score.toFixed(1)}
-              </li>
-            );
-          })}
-        </ul>
-        <p>
-          <strong>🏆 Najbolja kategorija:</strong> {summary.bestCategory}
-        </p>
+      <div className="stats-print-container" ref={pdfRef}>
+        <img src={logo} alt="logo" className="logo" />
+        <div className="print-summary">
+          <h2>Statistika korisnika</h2>
+          <p>
+            <strong>Ukupan broj partija:</strong> {summary.totalGames}
+          </p>
+          <h3>Prosečni rezultati po kategoriji:</h3>
+          <ul>
+            {summary.categoryStats.map((stat, index) => {
+              const category = Object.keys(stat)[0];
+              const score = stat[category];
+              return (
+                <li key={index}>
+                  {category}: {score.toFixed(1)}
+                </li>
+              );
+            })}
+          </ul>
+          <p>
+            <strong>Najbolja kategorija:</strong> {summary.bestCategory}
+          </p>
+        </div>
+
+        <div className="print-chart">
+          {chartImage && <img src={chartImage} alt="Pie chart" />}
+        </div>
+
+        <div className="print-games">
+          <h3>Lista svih odigranih partija</h3>
+          {allGames.map((game, index) => (
+            <div key={index} className="print-game-item">
+              <p>
+                <strong>Kategorija:</strong> {game.categoryTitle}
+              </p>
+              <p>
+                <strong>Rezultat:</strong> {game.score}
+              </p>
+              <p>
+                <strong>Datum:</strong>{" "}
+                {new Date(game.playedAt).toLocaleDateString()}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="stats-left-wrapper">
@@ -180,6 +273,20 @@ const Stats = () => {
           options={options}
           width={"100%"}
           height={"20rem"}
+          chartEvents={[
+            {
+              eventName: "ready",
+              callback: ({ chartWrapper }) => {
+                const chart = chartWrapper.getChart();
+                if (chart && typeof chart.getImageURI === "function") {
+                  const uri = chart.getImageURI();
+                  setChartImage(uri);
+                } else {
+                  console.warn("Chart not ready to get image URI.");
+                }
+              },
+            },
+          ]}
         />
       </div>
       <div className="stats-right-wrapper">
@@ -193,7 +300,7 @@ const Stats = () => {
           ))}
         </div>
       </div>
-      <button className="pdf-button">
+      <button className="pdf-button" onClick={downloadPDF}>
         Preuzmi PDF statistike
       </button>
     </div>

@@ -165,3 +165,39 @@ select option {
   cursor: pointer;
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
+
+/* za pdf */
+
+.stats-print-container {
+  display: none;
+  padding: 16px;
+  font-size: 8px;
+  color: #ffffff;
+  background-color: #00c3ff;
+  width: 100%;
+  height: auto;
+}
+
+.stats-print-container .logo {
+  width: 100px;
+  display: block;
+  margin:0 auto;
+}
+
+.print-summary,
+.print-chart,
+.print-games {
+  font-size: 5pt;
+  margin-bottom: 16px;
+}
+
+.print-chart img {
+  width: 200px;
+  height: auto;
+  margin:0;
+}
+
+.print-game-item {
+  border-bottom: 1px solid #ccc;
+  padding: 4px 0;
+}
