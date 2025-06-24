@@ -66,4 +66,11 @@
     font-size: 1rem;
 }
 
+@media (max-width: 768px) {
+  .register-wrapper form {
+    box-shadow: none;
+  }
+
+}
+
 

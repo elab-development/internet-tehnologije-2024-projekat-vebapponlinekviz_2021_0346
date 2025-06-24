@@ -55,3 +55,38 @@ img {
   color: #00c3ff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
+/* MEDIA QUERY ZA MOBILNE UREĐAJE */
+@media (max-width: 768px) {
+  .login-wrapper {
+    background-size: cover;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  img {
+    width: 80%;
+    margin: 40px auto 20px auto;
+    display: block;
+  }
+
+  .login-btns {
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+    gap: 1rem;
+  }
+
+  .login-btns button {
+    flex: none;
+    width: 100%;
+    font-size: 1.2rem;
+  }
+
+  .login-btns button:nth-child(3) {
+    flex-basis: auto;
+  }
+}

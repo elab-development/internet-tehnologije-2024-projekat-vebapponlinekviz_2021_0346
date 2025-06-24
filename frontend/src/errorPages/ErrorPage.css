@@ -20,5 +20,23 @@
     color: #00296b;
  }
 
+ @media (max-width: 768px) {
+  .error-page-wrapper h1 {
+    font-size: 1.6rem;
+    text-align: center;
+    margin: 4rem 1rem 2rem 1rem;
+  }
+
+  .error-page-wrapper h2 {
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 0 1rem;
+  }
+
+  .error-page-wrapper a {
+    font-size: 1.2rem;
+  }
+}
+
 
 

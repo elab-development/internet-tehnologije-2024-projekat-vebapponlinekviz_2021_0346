@@ -55,3 +55,58 @@
     transform: translateY(-3px) scale(1.03);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
+
+@media (max-width: 768px) {
+  .score-wrapper {
+    height: 100vh;
+  }
+
+  .score-heading {
+    flex-direction: column;
+    margin-top: 1.5rem;
+    font-size: 1.4rem;
+    text-align: center;
+  }
+
+  .score-heading img {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .score-points {
+    margin: 2rem auto;
+    font-size: 2rem;
+    padding: 2rem 1rem;
+    width: 90%;
+    max-width: 90vw;
+  }
+
+  .score-points h3 {
+    text-align: center;
+    font-size: 2rem;
+  }
+
+  .score-points p {
+    font-size: 1.1rem;
+    text-align: center;
+    max-width: 90%;
+    margin: 1rem auto;
+    word-wrap: break-word;
+  }
+
+  .score-wrapper button {
+    display: block;
+    margin: 2rem auto 0 auto;
+    padding: 0.8rem 2rem;
+    font-size: 1.5rem;
+  }
+
+  #BIG-ICON {
+    display: block;
+    width: 10rem;
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

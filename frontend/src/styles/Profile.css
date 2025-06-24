@@ -24,7 +24,7 @@
   margin-top: 10%;
   margin-right: 0;
   max-width: 35vw;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .profile-wrapper-left .profile-support {
@@ -41,7 +41,7 @@
   display: flex;
   flex-direction: column;
   width: 50vw;
-  font-size:1.4rem;
+  font-size: 1.4rem;
 }
 
 .profile-user-data {
@@ -60,7 +60,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap:1rem;
+  gap: 1rem;
   margin-top: 1rem;
 }
 
@@ -78,11 +78,10 @@
   box-shadow: 0 0 20px 6px #ffffff;
 }
 
-
 .profile-wrapper #DELETE-DATA {
   background-color: #93d9ff;
   color: #00296b;
-  font-size:1.4rem;
+  font-size: 1.4rem;
   margin: 10% 20% 0 0;
   display: block;
   transition: box-shadow 0.3s ease-in-out;
@@ -92,18 +91,18 @@
 }
 
 .profile-wrapper .guest-prompt {
-  align-self:center;
+  align-self: center;
   justify-items: center;
-  margin:0 auto;
+  margin: 0 auto;
   background-color: #004bc3d4;
-  padding:1rem 2rem;
-  font-size:1.4rem;
+  padding: 1rem 2rem;
+  font-size: 1.4rem;
   color: #fff;
 }
 
 .profile-wrapper .guest-prompt button {
   background-color: #93d9ffa2;
-  font-size:1.4rem;
+  font-size: 1.4rem;
   color: #fff;
   margin-top: 0.7rem;
   padding: 0.2rem 1rem;
@@ -143,12 +142,12 @@
 
 .profile-wrapper .confirm-delete-message button {
   background-color: #93d9ff;
-  font-size:1.4rem;
+  font-size: 1.4rem;
   color: #00296b;
   margin-top: 0.7rem;
   padding: 0.2rem 1rem;
   transition: box-shadow 0.3s ease-in-out;
-  margin:1rem;
+  margin: 1rem;
 }
 
 .profile-wrapper .confirm-delete-message button:hover {
@@ -156,6 +155,64 @@
 }
 
 .profile-wrapper .confirm-delete-message p {
-  color:#fff;
+  color: #fff;
   font-size: 1.6rem;
+}
+
+@media (max-width: 768px) {
+  .profile-wrapper {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+  }
+
+  .profile-wrapper-left {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem 0 1rem 0;
+  }
+
+  .profile-wrapper-left img {
+    display: block;
+    margin: 0 auto;
+    max-width: 60vw;
+    margin-top: 2rem;
+  }
+
+  /* Sakrivamo poruku za podršku */
+  .profile-wrapper-left .profile-support {
+    display: none;
+  }
+
+  .profile-wrapper-right {
+    width: 100%;
+    max-width: 75vw;
+    align-self: center;
+    margin: 0;
+    padding: 0 1rem;
+  }
+
+  .profile-user-data {
+    margin: 1rem auto;
+    max-width: 75vw;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .profile-user-data-buttons {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .profile-wrapper #DELETE-DATA {
+    display: block;
+    margin:1rem auto;
+    padding: 0.1rem 2rem;
+  }
 }

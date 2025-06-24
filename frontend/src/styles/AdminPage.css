@@ -68,3 +68,156 @@
 .admin-score-input:focus-visible {
   outline-color: #00c3ff;
 }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  /* margin:auto;
+  margin-right: 5rem; */
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+  height: fit-content;
+}
+
+thead {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+th,
+td {
+  padding: 1rem 2rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  white-space: nowrap;
+}
+
+th {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+td {
+  font-size: 1.2rem;
+}
+
+tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+select {
+  background-color: transparent;
+  color: #ffffff;
+  padding: 6px 10px;
+  outline: none;
+  font-size: 1.2rem;
+  border: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+}
+
+select option {
+  background-color: transparent;
+  color: #00c3ff;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+}
+
+.stats-table-control {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.stats-table-control button {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  padding: 0.25rem;
+  font-size: 1.8rem;
+}
+
+.stats-pages {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .admin-wrapper {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url("../media/HomeResponsiveBg.png");
+  }
+
+  .admin-left-wrapper {
+    width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0;
+  }
+
+  .admin-left-wrapper img {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .admin-all-stats {
+    display: block;
+    margin:1rem auto 1rem auto;
+    font-size: 1.2rem;
+    width: 90%;
+    max-width: 75vw;
+    text-align: center;
+    padding: 3rem 2rem;
+  }
+
+  .admin-right-wrapper {
+    width: 100%;
+    margin: 0;
+    padding: 0 1rem;
+    align-items: center;
+  }
+
+  .admin-games-table {
+    display: block;
+    font-size: 0.9rem;
+    max-width: 90vw;
+    margin-top: 1rem;
+  }
+
+  th,
+  td {
+    padding: 0.5rem 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .stats-table-control {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .stats-table-control select {
+    width: 90%;
+  }
+
+  .stats-table-control button {
+    width: 3rem;
+    font-size: 1.5rem;
+  }
+
+  .stats-pages {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+  }
+}

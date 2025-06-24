@@ -135,3 +135,88 @@
 .home-stats-button:hover {
   box-shadow: 0 0 20px 6px #ffffff;
 }
+
+@media (max-width: 768px) {
+  .home-wrapper {
+    background-size: cover;
+    overflow: hidden;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .left-wrapper {
+    width: 100%;
+    margin: 0;
+    align-items: center;
+    order: 2; /* stavlja celu levu stranu iza profila */
+    padding: 0;
+  }
+
+  .left-wrapper img {
+    display: none; /* sakrij logo na mobilnom */
+  }
+
+  .points {
+    margin: 1rem 0 2rem 0;
+    padding: 1rem;
+    font-size: 1.2rem;
+    width: 100%;
+    max-width: 75vw;
+    text-align: center;
+    background-color: #00c3ff;
+    color: #fff;
+    order: 3;
+    align-self: center;
+  }
+
+  .right-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    order: 4;
+    margin-top: 1rem;
+  }
+
+  .profile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    max-width: 100vw;
+    padding: 1rem 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1rem;
+    margin-top: 0;
+    order: 0;
+  }
+
+  .profile img {
+    display: none;
+  }
+
+  .weather-info {
+    font-size: 0.9rem;
+  }
+
+  .category-button-wrapper {
+    width: 100%;
+    margin: 15rem auto;
+    align-self: center;
+    justify-self: center;
+    gap: 0.5rem;
+    margin-bottom: 0;
+  }
+
+  .category-button {
+    width: 100%;
+    max-width: 75vw;
+    font-size: 1.5rem;
+    padding: 0.8rem;
+  }
+}

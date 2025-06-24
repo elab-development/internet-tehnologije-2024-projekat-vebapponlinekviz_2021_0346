@@ -17,7 +17,7 @@
   justify-content: space-around;
   align-items: center;
   width: 100vw;
-  margin-top:2rem;
+  margin-top: 2rem;
 }
 
 .category-name {
@@ -41,40 +41,40 @@
 
 .category-heading .category-timer {
   background-color: #00c3ff7a;
-  padding:0.5rem 1.5rem;
-  color:#fff;
-  font-size: 1.6rem;  
+  padding: 0.5rem 1.5rem;
+  color: #fff;
+  font-size: 1.6rem;
 }
 
 .category-questions {
   display: flex;
   flex-direction: column;
   margin: 5% 20%;
-  color:#fff;
+  color: #fff;
   z-index: 1;
 }
 
 .category-question {
   font-size: 1.5rem;
   background-color: #00c3ff7a;
-  padding:1.5rem 2rem;
+  padding: 1.5rem 2rem;
 }
 
 .category-answers {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap:1rem;
-  margin-right:30%;
-  margin-top:2rem;
+  gap: 1rem;
+  margin-right: 30%;
+  margin-top: 2rem;
 }
 
 .category-answers button {
   font-size: 1.4rem;
   background-color: #00c3ff7a;
-  border:none;
-  padding:0.6rem 0;
-  color:#fff;
-  cursor:pointer;
+  border: none;
+  padding: 0.6rem 0;
+  color: #fff;
+  cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -92,18 +92,53 @@
 }
 
 .correct-answer {
-  background-color: #00ff00 !important; 
+  background-color: #00ff00 !important;
   opacity: 1 !important;
   filter: none !important;
 }
 
 #BIG-ICON {
+  display: block;
+  width: 10rem;
+  transform: scale(2);
+  transform-origin: center;
+  position: absolute;
+  margin: 0;
+  bottom: 20%;
+  right: 20%;
+}
+
+@media (max-width: 768px) {
+  .category-answers {
+    grid-template-columns: 1fr;
+    margin-right: 0;
+    /* margin: 2rem auto 0 auto; */
+  }
+
+  .category-question {
+    font-size: 1.6rem;
+  }
+
+  .category-answers button {
+    width: 100%;
+    padding: 0.5rem 2rem;
+    font-size: 1.6rem;
+  }
+
+  .category-heading .category-timer {
+    margin-right: 1rem;
+  }
+
+  .category-name img {
+    margin-left: 1rem;
+  }
+
+  #BIG-ICON {
     display: block;
-    width:10rem;
-    transform: scale(2);
-    transform-origin: center;
+    width: 10rem;
     position: absolute;
-    margin:0;
-    bottom:20%;
-    right:20%; 
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+  } 
 }
