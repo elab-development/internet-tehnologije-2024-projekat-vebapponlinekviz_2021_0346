@@ -32,6 +32,17 @@
   gap: 1rem;
 }
 
+.stats-right-wrapper .sort-button {
+  background-color: #00c3ff;
+  color: white;
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
 .stats-right-wrapper .games-list {
   max-height: 400px;
   overflow-y: auto;
@@ -67,7 +78,7 @@
   background-color: rgba(255, 255, 255, 0.6);
 }
 
-.stats-print-container{
+.stats-print-container {
   display: none;
 }
 
@@ -83,7 +94,7 @@
   border-radius: 8px;
   border: none;
   cursor: pointer;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 /* za pdf */
@@ -101,7 +112,7 @@
 .stats-print-container .logo {
   width: 100px;
   display: block;
-  margin:0 auto;
+  margin: 0 auto;
 }
 
 .print-summary,
@@ -114,7 +125,7 @@
 .print-chart img {
   width: 200px;
   height: auto;
-  margin:0;
+  margin: 0;
 }
 
 .print-game-item {
@@ -141,7 +152,7 @@
 
   .stats-left-wrapper svg {
     max-width: 100vw;
-    margin:0;
+    margin: 0;
     margin-top: 2rem;
   }
 
@@ -152,11 +163,9 @@
 
   .stats-right-wrapper {
     width: 100%;
-    /* margin: 2rem auto 0 auto; */
-    /* padding: 0 1rem; */
-    margin:1rem auto;
+    margin: 1rem auto;
   }
-
+  
   .stats-right-wrapper .games-list {
     max-height: none;
     overflow: hidden;

@@ -49,6 +49,7 @@ const Stats = () => {
 
   const [chartData, setChartData] = useState([["Kategorija", "Broj partija"]]);
   const [allGames, setAllGames] = useState([]);
+  const [reverseOrder, setReverseOrder] = useState(false);
   const [summary, setSummary] = useState({
     totalGames: 0,
     categoryStats: [],
@@ -62,6 +63,10 @@ const Stats = () => {
   const api = axios.create({
     baseURL: "http://localhost:2812/api/",
   });
+
+  const toggleOrder = () => {
+    setReverseOrder((prev) => !prev);
+  };
 
   const handleNavigate = (route) => {
     navigate(route);
@@ -145,60 +150,58 @@ const Stats = () => {
   };
 
   const downloadPDF = () => {
-  const input = pdfRef.current;
+    const input = pdfRef.current;
 
-  // Sačuvaj originalne stilove tela stranice
-  const originalOverflow = document.body.style.overflow;
-  const originalHtmlOverflow = document.documentElement.style.overflow;
-  const originalHtmlHeight = document.documentElement.style.height;
-  const originalBodyHeight = document.body.style.height;
+    // Sačuvaj originalne stilove tela stranice
+    const originalOverflow = document.body.style.overflow;
+    const originalHtmlOverflow = document.documentElement.style.overflow;
+    const originalHtmlHeight = document.documentElement.style.height;
+    const originalBodyHeight = document.body.style.height;
 
-  // Omogući prikaz celog sadržaja
-  document.body.style.overflow = "visible";
-  document.documentElement.style.overflow = "visible";
-  document.body.style.height = "auto";
-  document.documentElement.style.height = "auto";
+    // Omogući prikaz celog sadržaja
+    document.body.style.overflow = "visible";
+    document.documentElement.style.overflow = "visible";
+    document.body.style.height = "auto";
+    document.documentElement.style.height = "auto";
 
-  input.style.display = "block";
+    input.style.display = "block";
 
-  html2canvas(input, {
-    scale: 3,
-    useCORS: true,
-    windowWidth: input.scrollWidth, // ključno!
-    windowHeight: input.scrollHeight,
-    backgroundColor: null,
-  }).then((canvas) => {
-    const imgData = canvas.toDataURL("image/png");
-    const pdf = new jsPDF("p", "mm", "a4");
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = pdf.internal.pageSize.getHeight();
+    html2canvas(input, {
+      scale: 3,
+      useCORS: true,
+      windowWidth: input.scrollWidth, // ključno!
+      windowHeight: input.scrollHeight,
+      backgroundColor: null,
+    }).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4");
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
 
-    const imgWidth = pdfWidth;
-    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      const imgWidth = pdfWidth;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-    let position = 0;
-    pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-
-    let remainingHeight = imgHeight - pdfHeight;
-    while (remainingHeight > -10) {
-      position -= pdfHeight;
-      pdf.addPage();
+      let position = 0;
       pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-      remainingHeight -= pdfHeight;
-    }
 
-    pdf.save(`${player.username}.pdf`);
+      let remainingHeight = imgHeight - pdfHeight;
+      while (remainingHeight > -10) {
+        position -= pdfHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+        remainingHeight -= pdfHeight;
+      }
 
-    // Vrati stilove na prethodno stanje
-    document.body.style.overflow = originalOverflow;
-    document.documentElement.style.overflow = originalHtmlOverflow;
-    document.body.style.height = originalBodyHeight;
-    document.documentElement.style.height = originalHtmlHeight;
-    input.style.display = "none";
-  });
-};
+      pdf.save(`${player.username}.pdf`);
 
-
+      // Vrati stilove na prethodno stanje
+      document.body.style.overflow = originalOverflow;
+      document.documentElement.style.overflow = originalHtmlOverflow;
+      document.body.style.height = originalBodyHeight;
+      document.documentElement.style.height = originalHtmlHeight;
+      input.style.display = "none";
+    });
+  };
 
   useEffect(() => {
     getGamesCount();
@@ -212,8 +215,8 @@ const Stats = () => {
     console.log(summary);
   }, [allGames, chartData]);
 
-  if(!player){
-    return <Page401/>
+  if (!player) {
+    return <Page401 />;
   }
 
   return (
@@ -290,14 +293,23 @@ const Stats = () => {
         />
       </div>
       <div className="stats-right-wrapper">
+        <button className="sort-button" onClick={toggleOrder}>
+          {reverseOrder ? "Prikaži najnovije prvo" : "Prikaži najstarije prvo"}
+        </button>
         <div className="games-list">
-          {allGames.map((game, index) => (
-            <div key={index} className="game-item">
-              <p>Kategorija: {game.categoryTitle}</p>
-              <p>Rezultat: {game.score}</p>
-              <p>Datum: {new Date(game.playedAt).toLocaleDateString()}</p>
-            </div>
-          ))}
+          {[...allGames]
+            .sort((a, b) =>
+              reverseOrder
+                ? new Date(a.playedAt) - new Date(b.playedAt)
+                : new Date(b.playedAt) - new Date(a.playedAt)
+            )
+            .map((game, index) => (
+              <div key={index} className="game-item">
+                <p>Kategorija: {game.categoryTitle}</p>
+                <p>Rezultat: {game.score}</p>
+                <p>Datum: {new Date(game.playedAt).toLocaleDateString()}</p>
+              </div>
+            ))}
         </div>
       </div>
       <button className="pdf-button" onClick={downloadPDF}>

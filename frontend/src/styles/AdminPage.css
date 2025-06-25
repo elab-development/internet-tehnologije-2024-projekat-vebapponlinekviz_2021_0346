@@ -72,8 +72,6 @@
 table {
   width: 100%;
   border-collapse: collapse;
-  /* margin:auto;
-  margin-right: 5rem; */
   background-color: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   overflow: hidden;
@@ -131,6 +129,15 @@ select option {
   display: flex;
   flex-direction: row;
   gap: 1rem;
+  align-items: center;
+}
+
+.stats-table-control-options {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap:0.5rem;
 }
 
 .stats-table-control button {
@@ -141,6 +148,22 @@ select option {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   padding: 0.25rem;
   font-size: 1.8rem;
+}
+
+.stats-table-control input {
+  background-color: transparent;
+  color: #ffffff;
+  padding: 6px 10px;
+  outline: none;
+  font-size: 1.2rem;
+  border: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+}
+
+.stats-table-control input::placeholder {
+  opacity: 0.5;
+  color: #fff;
 }
 
 .stats-pages {
@@ -172,7 +195,7 @@ select option {
 
   .admin-all-stats {
     display: block;
-    margin:1rem auto 1rem auto;
+    margin: 1rem auto 1rem auto;
     font-size: 1.2rem;
     width: 90%;
     max-width: 75vw;
@@ -190,7 +213,7 @@ select option {
   .admin-games-table {
     display: block;
     font-size: 0.9rem;
-    max-width: 90vw;
+    max-width: 95vw;
     margin-top: 1rem;
   }
 
@@ -201,10 +224,16 @@ select option {
   }
 
   .stats-table-control {
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
     margin-top: 1rem;
+  }
+
+  .stats-table-control input {
+    order: -1;
+    width: 100%;
   }
 
   .stats-table-control select {
@@ -220,4 +249,6 @@ select option {
     font-size: 1.2rem;
     margin-top: 1rem;
   }
+
+  
 }

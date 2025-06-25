@@ -167,10 +167,30 @@ const getPaginatedGames = async (req, res) => {
     const limit = 4;
     const skip = (page - 1) * limit;
     const category = req.query.category;
+    const username = req.query.username;
 
     const query = {};
     if (category) {
       query.category = category;
+    }
+
+    if (username) {
+      const users = await User.find({
+        username: { $regex: new RegExp(username, "i") },
+      });
+
+      const userIds = users.map((user) => user._id);
+
+      if (userIds.length > 0) {
+        query.player = { $in: userIds };
+      } else {
+        return res.json({
+          games: [],
+          totalGames: 0,
+          totalPages: 0,
+          currentPage: page,
+        });
+      }
     }
 
     const totalGames = await Game.countDocuments(query);
@@ -192,6 +212,7 @@ const getPaginatedGames = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
 
 const getGamesCountByCategoryForPlayer = async (req, res) => {
   try {
@@ -253,7 +274,6 @@ const readAllGamesByPlayer = async (req, res) => {
   }
 };
 
-
 const gameController = {
   createGame,
   readAllGames,
@@ -264,7 +284,7 @@ const gameController = {
   getAdminStats,
   getPaginatedGames,
   getGamesCountByCategoryForPlayer,
-  readAllGamesByPlayer
+  readAllGamesByPlayer,
 };
 
 module.exports = gameController;

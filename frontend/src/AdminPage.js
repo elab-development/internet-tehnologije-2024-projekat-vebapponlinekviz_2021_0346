@@ -13,8 +13,9 @@ const AdminPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [editingGameId, setEditingGameId] = useState(null);
   const [editedScore, setEditedScore] = useState("");
+  const [usernameFilter, setUsernameFilter] = useState("");
 
-  const {player} = useContext(LoginContext);
+  const { player } = useContext(LoginContext);
 
   const [stats, setStats] = useState({
     totalPlayers: 0,
@@ -39,7 +40,7 @@ const AdminPage = () => {
   const fetchGames = async (pageNum) => {
     try {
       const res = await api.get(
-        `games/admin/paginatedGames?page=${pageNum}&category=${selectedCategory}`
+        `games/admin/paginatedGames?page=${pageNum}&category=${selectedCategory}&username=${usernameFilter}`
       );
       setGames(res.data.games);
       setTotalPages(res.data.totalPages);
@@ -89,7 +90,7 @@ const AdminPage = () => {
   };
 
   if (!player?.admin) {
-    return <Page401/>
+    return <Page401 />;
   }
 
   return (
@@ -168,21 +169,38 @@ const AdminPage = () => {
           {page} / {totalPages}
         </span>
         <div className="stats-table-control">
-          <select
-            onChange={(e) => {
-              setSelectedCategory(e.target.value);
-              setPage(1);
-            }}
-          >
-            <option value="">Sve kategorije</option>
-            {categoriesFilter.map((category, index) => (
-              <option value={category._id} key={index}>
-                {category.title}
-              </option>
-            ))}
-          </select>
-          <button onClick={handlePrev}>{"<"}</button>
-          <button onClick={handleNext}>{">"}</button>
+          <div className="stats-table-control-input">
+            <input
+              type="text"
+              placeholder="Pretraži po korisniku..."
+              value={usernameFilter}
+              onChange={(e) => {
+                setUsernameFilter(e.target.value);
+                setPage(1); // Vrati se na prvu stranicu
+              }}
+              onBlur={() => fetchGames(1)} // Pretraga se aktivira kad izgubi fokus
+              onKeyDown={(e) => {
+                if (e.key === "Enter") fetchGames(1); // ili Enter
+              }}
+            />
+          </div>
+          <div className="stats-table-control-options">
+            <select
+              onChange={(e) => {
+                setSelectedCategory(e.target.value);
+                setPage(1);
+              }}
+            >
+              <option value="">Sve kategorije</option>
+              {categoriesFilter.map((category, index) => (
+                <option value={category._id} key={index}>
+                  {category.title}
+                </option>
+              ))}
+            </select>
+            <button onClick={handlePrev}>{"<"}</button>
+            <button onClick={handleNext}>{">"}</button>
+          </div>
         </div>
       </div>
     </div>
