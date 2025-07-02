@@ -22,22 +22,29 @@ const LoginPage = () => {
   };
 
   const loginPlayer = async (userData) => {
-    return await api.post("/users/login", userData);
+    const response = await api.post("/users/login", userData);
+    const { token, user } = response.data;
+    // Čuvanje tokena i korisničkih podataka
+    localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(user));
+
+    return user;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const player = { username, password };
     try {
-      let loggedInPlayer = await loginPlayer(player);
-      setPlayer(loggedInPlayer.data);
-      if (loggedInPlayer.data?.admin) {
+      const user = await loginPlayer(player);
+      setPlayer(user); // korisnik bez tokena (token je u localStorage)
+
+      if (user.admin) {
         handleNavigate("/admin");
       } else {
         handleNavigate("/home");
       }
     } catch (error) {
-      if (error.response && error.response.status === 404) {
+      if (error.response && error.response.data?.message) {
         alert(error.response.data.message);
       } else {
         alert("Greška prilikom prijave korisnika.");

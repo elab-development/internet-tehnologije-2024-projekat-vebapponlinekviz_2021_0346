@@ -42,26 +42,48 @@ const Profile = () => {
 
   const handleDeleteUser = async () => {
     try {
-      // await api.delete("/users", { data: { username: player.username } });
-      await api.delete(`/users/${player._id}`);
-      deleteForm.current.style.display = "none";
+      const token = localStorage.getItem("token");
+
+      await api.delete(`/users/${player._id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // Očisti sve lokalne podatke
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
       setPlayer(null);
+      deleteForm.current.style.display = "none";
+      navigate("/"); // ako želiš da korisnika odmah vratiš na login
     } catch (e) {
       alert("Nije moguće obrisati korisnika");
     }
   };
 
-  const handleLogout = ()=>{
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setPlayer(null);
     navigate("/");
-  }
+  };
 
   const updateUser = async (newData, oldUsername, oldPassword) => {
-    return await api.patch("/users", {
-      filter: { username: oldUsername },
-      oldPassword: oldPassword,
-      update: newData,
-    });
+    const token = localStorage.getItem("token");
+
+    return await api.patch(
+      "/users",
+      {
+        filter: { username: oldUsername },
+        oldPassword: oldPassword,
+        update: newData,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
   };
 
   const handleSubmit = async (e) => {
