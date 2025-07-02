@@ -39,12 +39,19 @@ const Score = ({ category, scorePoints }) => {
   useEffect(() => {
     const createGame = async () => {
       try {
-        let game = {
+        const token = localStorage.getItem("token");
+
+        const game = {
           category: category._id,
           player: player._id,
           score: scorePoints,
         };
-        return await api.post("/games", game);
+
+        return await api.post("/games", game, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
       } catch (e) {
         console.error("Greška prilikom kreiranja igre:", e.message);
       }
@@ -62,7 +69,6 @@ const Score = ({ category, scorePoints }) => {
   const handleNavigate = () => {
     navigate("/home");
   };
-
 
   return (
     <div

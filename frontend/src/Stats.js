@@ -76,7 +76,12 @@ const Stats = () => {
     try {
       if (!player?._id) return;
 
-      const res = await api.get(`/games/${player._id}/stats/gameCount`);
+      const token = localStorage.getItem("token");
+      const res = await api.get(`/games/${player._id}/stats/gameCount`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       const data = res.data;
 
       const formatted = [["Kategorija", "Broj partija"]];
@@ -92,8 +97,12 @@ const Stats = () => {
 
   const getAllGames = async () => {
     try {
-      const res = await api.get(`games/${player._id}/stats/allGames`);
-      console.log(res.data);
+      const token = localStorage.getItem('token');
+      const res = await api.get(`games/${player._id}/stats/allGames`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       setAllGames(res.data);
     } catch (e) {
       console.error("Greška prilikom dohvatanja igara:", e);
@@ -212,7 +221,6 @@ const Stats = () => {
     if (allGames && chartData) {
       calculateSummary();
     }
-    console.log(summary);
   }, [allGames, chartData]);
 
   if (!player) {

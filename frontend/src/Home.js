@@ -82,7 +82,12 @@ const Home = ({ setCurrentCategory }) => {
   };
 
   const getBestScoresByCategory = async (playerId) => {
-    return await api.get(`/games/best/${playerId}`);
+    const token = localStorage.getItem("token");
+    return await api.get(`/games/best/${playerId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   };
 
   const getWeather = async () => {
@@ -130,7 +135,12 @@ const Home = ({ setCurrentCategory }) => {
                   {item.categoryTitle}: {item.score}
                 </p>
               ))}
-              <button className="home-stats-button" onClick={()=>handleNavigate("/stats")}>Moja statistika</button>
+              <button
+                className="home-stats-button"
+                onClick={() => handleNavigate("/stats")}
+              >
+                Moja statistika
+              </button>
             </>
           ) : (
             <>
@@ -145,7 +155,7 @@ const Home = ({ setCurrentCategory }) => {
         </div>
       </div>
       <div className="right-wrapper">
-        <div className="profile" onClick={()=>handleNavigate("/profile")}>
+        <div className="profile" onClick={() => handleNavigate("/profile")}>
           <div className="weather-info">
             <p>{weatherIcon}</p>
             <p>{temperature}°C</p>

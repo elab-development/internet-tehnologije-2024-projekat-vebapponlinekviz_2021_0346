@@ -4,6 +4,7 @@ import "./styles/AdminPage.css";
 import axios from "axios";
 import { LoginContext } from "./context/LoginContext";
 import Page401 from "./errorPages/Page401";
+import { useNavigate } from "react-router-dom";
 
 const AdminPage = () => {
   const [games, setGames] = useState([]);
@@ -15,7 +16,9 @@ const AdminPage = () => {
   const [editedScore, setEditedScore] = useState("");
   const [usernameFilter, setUsernameFilter] = useState("");
 
-  const { player } = useContext(LoginContext);
+  const { player, setPlayer } = useContext(LoginContext);
+
+  const navigate = useNavigate();
 
   const [stats, setStats] = useState({
     totalPlayers: 0,
@@ -33,20 +36,39 @@ const AdminPage = () => {
   };
 
   const fetchStats = async () => {
-    const res = await api.get("games/admin/stats");
-    setStats(res.data);
+    try {
+      const token = localStorage.getItem("token");
+
+      const res = await api.get("games/admin/stats", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setStats(res.data);
+    } catch (error) {
+      console.error("Greška pri učitavanju statistike:", error);
+    }
   };
 
   const fetchGames = async (pageNum) => {
     try {
+      const token = localStorage.getItem("token");
+
       const res = await api.get(
-        `games/admin/paginatedGames?page=${pageNum}&category=${selectedCategory}&username=${usernameFilter}`
+        `games/admin/paginatedGames?page=${pageNum}&category=${selectedCategory}&username=${usernameFilter}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
+
       setGames(res.data.games);
       setTotalPages(res.data.totalPages);
       setPage(res.data.currentPage);
     } catch (e) {
-      console.error("Greška pri dohvatanju partija", e);
+      console.error("Greška pri ucitavanju partija", e);
     }
   };
 
@@ -69,24 +91,49 @@ const AdminPage = () => {
 
   const handleDelete = async (gameId) => {
     try {
-      await api.delete(`games/${gameId}`);
+      const token = localStorage.getItem("token");
+
+      await api.delete(`games/${gameId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
       setPage(1);
       await fetchGames(1);
       await fetchStats();
     } catch (error) {
-      alert("Neuspesno brisanje igre");
+      alert("Neuspešno brisanje igre");
     }
   };
 
   const handleSaveChanges = async (gameId) => {
     try {
-      await api.patch(`games/${gameId}`, { score: editedScore });
+      const token = localStorage.getItem("token");
+
+      await api.patch(
+        `games/${gameId}`,
+        { score: editedScore },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
       setEditingGameId(null);
       fetchGames(page);
       fetchStats();
     } catch (e) {
       alert("Neuspešna izmena rezultata");
     }
+  };
+
+  const handleAdminLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setPlayer(null);
+    navigate("/");
   };
 
   if (!player?.admin) {
@@ -203,6 +250,9 @@ const AdminPage = () => {
           </div>
         </div>
       </div>
+      <button className="admin-logout-button" onClick={handleAdminLogout}>
+        Odjavi se
+      </button>
     </div>
   );
 };
