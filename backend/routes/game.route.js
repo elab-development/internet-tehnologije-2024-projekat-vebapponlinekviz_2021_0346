@@ -7,8 +7,6 @@ const {
 } = require("../middleware/auth.middleware");
 
 router.post("/", authenticate, gameController.createGame);
-router.get("/", gameController.readAllGames);
-router.get("/:id", gameController.readGame);
 router.patch("/:id", authenticate, authorizeAdmin, gameController.updateGame);
 router.delete("/:id", authenticate, authorizeAdmin, gameController.deleteGame);
 router.get("/best/:playerId", authenticate, gameController.getPlayerBestScores);

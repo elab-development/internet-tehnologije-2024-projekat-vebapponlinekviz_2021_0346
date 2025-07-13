@@ -35,15 +35,6 @@ const createUser = async (req, res) => {
   }
 };
 
-const readAllUsers = async (req, res) => {
-  try {
-    const users = await User.find({});
-    res.status(200).json(users);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
-};
-
 const readUser = async (req, res) => {
   const { username, password } = req.body;
 
@@ -136,7 +127,6 @@ const deleteUser = async (req, res) => {
 
 const userController = {
   createUser,
-  readAllUsers,
   readUser,
   updateUser,
   deleteUser,

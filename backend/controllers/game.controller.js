@@ -24,24 +24,24 @@ const createGame = async (req, res) => {
   }
 };
 
-const readAllGames = async (req, res) => {
-  try {
-    const games = await Game.find({});
-    res.status(200).json(games);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
-};
+// const readAllGames = async (req, res) => {
+//   try {
+//     const games = await Game.find({});
+//     res.status(200).json(games);
+//   } catch (error) {
+//     res.status(404).json({ message: error.message });
+//   }
+// };
 
-const readGame = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const game = await Game.findById(id);
-    res.status(200).json(game);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
-};
+// const readGame = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const game = await Game.findById(id);
+//     res.status(200).json(game);
+//   } catch (error) {
+//     res.status(404).json({ message: error.message });
+//   }
+// };
 
 const updateGame = async (req, res) => {
   try {
@@ -276,8 +276,8 @@ const readAllGamesByPlayer = async (req, res) => {
 
 const gameController = {
   createGame,
-  readAllGames,
-  readGame,
+  // readAllGames,
+  // readGame,
   updateGame,
   deleteGame,
   getPlayerBestScores,

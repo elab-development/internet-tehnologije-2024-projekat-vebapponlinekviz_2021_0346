@@ -18,15 +18,15 @@ const readAllCategories = async (req, res) => {
   }
 };
 
-const readCategory = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const category = await Category.findById(id);
-    res.status(200).json(category);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-};
+// const readCategory = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const category = await Category.findById(id);
+//     res.status(200).json(category);
+//   } catch (error) {
+//     res.status(400).json({ message: error.message });
+//   }
+// };
 
 const updateCategory = async (req, res) => {
   try {
@@ -53,7 +53,7 @@ const deleteCategory = async (req, res) => {
 const categoryController = {
   createCategory,
   readAllCategories,
-  readCategory,
+  // readCategory,
   updateCategory,
   deleteCategory,
 };
