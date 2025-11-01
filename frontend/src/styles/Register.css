@@ -8,6 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .register-wrapper form {
@@ -15,55 +16,62 @@
   flex-direction: column;
   background-color: #fff;
   align-items: center;
-  padding:2rem;
-  font-size:1.6rem;
-  box-shadow: 3rem 1.5rem 0 #00C3FF;
+  padding: 2rem;
+  font-size: 1.6rem;
+  box-shadow: 3rem 1.5rem 0 #00c3ff;
 }
 
 .register-wrapper label {
-    align-self: flex-start;
-    color: #00C3FF;
+  align-self: flex-start;
+  color: #00c3ff;
 }
 
 .register-wrapper input {
-    background-color: #00C3FF;
-    border:none;
-    color:#fff;
-    font-size: 1.6rem;
+  background-color: #00c3ff;
+  border: none;
+  color: #fff;
+  font-size: 1.6rem;
 }
 
 .register-wrapper button {
-    background-color: #00C3FF;
-    border:none;
-    color:#fff;
-    margin:2rem 0.8rem 0.6rem;
-    padding:0.1rem 1rem;
-    font-size:1.6rem;
-    transition: all 0.4s ease-in-out;
+  background-color: #00c3ff;
+  border: none;
+  color: #fff;
+  margin: 2rem 0.8rem 0.6rem;
+  padding: 0.1rem 1rem;
+  font-size: 1.6rem;
+  transition: all 0.4s ease-in-out;
 }
 
 .register-wrapper button:hover {
-    background-color: #0062ff;
-    box-shadow: 0px 6px 20px rgba(0, 119, 182, 0.7); 
-    transform: scale(1.05);
-    cursor:pointer;
+  background-color: #0062ff;
+  box-shadow: 0px 6px 20px rgba(0, 119, 182, 0.7);
+  transform: scale(1.05);
+  cursor: pointer;
 }
 
 .register-wrapper button:disabled {
-    background-color: #70abbe;
-    box-shadow: none;
-    transform: none;
-    cursor:pointer;
-    opacity: 0.8;
+  background-color: #70abbe;
+  box-shadow: none;
+  transform: none;
+  cursor: pointer;
+  opacity: 0.8;
 }
 .register-wrapper input:focus {
-    border:0.1rem solid #0062ff;
-    outline:none;
+  border: 0.1rem solid #0062ff;
+  outline: none;
 }
 
 .register-wrapper .message {
-    color:#0062ff;
-    font-size: 1rem;
+  color: #0062ff;
+  font-size: 1rem;
+}
+
+.logo-img {
+  position: absolute;
+  transform: scale(0.5);
+  bottom: 77%;
+  left: 15%;
 }
 
 @media (max-width: 768px) {
@@ -71,6 +79,9 @@
     box-shadow: none;
   }
 
+  .logo-img {
+    position: absolute;
+    transform: scale(1);
+    left: 10%;
+  }
 }
-
-

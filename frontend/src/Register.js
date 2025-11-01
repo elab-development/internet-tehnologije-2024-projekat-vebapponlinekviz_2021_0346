@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./styles/Register.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import logo from "./media/Logo.png";
 
 const Register = () => {
   const api = axios.create({
@@ -22,8 +23,8 @@ const Register = () => {
 
   const navigate = useNavigate();
 
-  const handleNavigate = () => {
-    navigate("/login");
+  const handleNavigate = (route) => {
+    navigate(route);
   };
 
   const handleSubmit = async (e) => {
@@ -37,7 +38,7 @@ const Register = () => {
     };
     try {
       await createUser(newUser);
-      handleNavigate();
+      handleNavigate("login");
     } catch (error) {
       if (error.response && error.response.status === 400) {
         alert(error.response.data.message);
@@ -53,6 +54,7 @@ const Register = () => {
 
   return (
     <div className="register-wrapper">
+      <img src={logo} alt="logo" onClick={() => handleNavigate("/")} className="logo-img" />
       <form onSubmit={handleSubmit}>
         <label htmlFor="ime">Ime:</label>
         <input

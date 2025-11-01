@@ -54,7 +54,7 @@ const LoginPage = () => {
 
   return (
     <div className="loginpage-wrapper">
-      <img src={logo} alt="logo" />
+      <img src={logo} alt="logo" onClick={() => handleNavigate("/")} />
       <form onSubmit={handleSubmit}>
         <div className="form-element upper-element">
           <label htmlFor="username">Korisničko ime:</label>
