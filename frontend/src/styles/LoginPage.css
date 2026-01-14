@@ -1,0 +1,128 @@
+.loginpage-wrapper {
+  background-image: url("../media/LoginPageBg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loginpage-wrapper img {
+  margin: 0;
+  margin-top: 5%;
+}
+
+.loginpage-wrapper form {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.6rem;
+  margin-top: 1rem;
+}
+
+.loginpage-wrapper .form-element {
+  background-color: #00c3ff;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.loginpage-wrapper .upper-element {
+  padding-top: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+.loginpage-wrapper .lower-element {
+  padding-bottom: 1rem;
+}
+
+.loginpage-wrapper label {
+  color: #fff;
+  padding-right: 2rem;
+}
+
+.loginpage-wrapper input {
+  font-size: 1.5rem;
+  padding: 0 6.8rem 0 0;
+  border: none;
+  color: #00c3ff;
+}
+
+.loginpage-wrapper input:focus {
+  outline: none;
+}
+
+.loginpage-wrapper button {
+  align-self: flex-end;
+  color: #00c3ff;
+  background-color: #fff;
+  text-align: center;
+  border: none;
+  padding: 0.3rem 10rem;
+  box-shadow: 1.5rem 0.5rem 0 #00c3ff;
+  margin: 1rem 1.5rem 0 0;
+  font-size: 1.4rem;
+  transition: all 0.4s ease-in-out;
+}
+
+.loginpage-wrapper button:hover {
+  color: #fff;
+  background-color: #00c3ff;
+  box-shadow: 1.5rem 0.5rem 0 #fff;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .loginpage-wrapper {
+    justify-content: center;
+    padding: 0 1rem;
+    box-sizing: border-box;
+  }
+
+  .loginpage-wrapper form {
+    width: 100%;
+    max-width: 400px;
+    margin: 2rem auto 0 auto;
+    box-sizing: border-box;
+  }
+
+  .loginpage-wrapper .form-element {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    padding: 1rem 0;
+    gap: 0.5rem;
+    box-sizing: border-box;
+    padding:1rem;
+  }
+
+  .loginpage-wrapper label {
+    padding-right: 0;
+    width: 100%;
+  }
+
+  .loginpage-wrapper input {
+    width: 100%;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    font-size: 1.4rem;
+  }
+
+  .loginpage-wrapper button {
+    align-self: center;
+    padding: 0.6rem 2rem;
+    margin: 1.5rem auto 0 auto;
+    box-shadow: 0.6rem 0.4rem 0 #00c3ff;
+    font-size: 1.3rem;
+  }
+
+  .loginpage-wrapper img {
+    width: 70%;
+    height: auto;
+    margin-top: 1rem;
+  }
+}

@@ -1,0 +1,269 @@
+.admin-wrapper {
+  background-image: url("../media/HomeBg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.admin-left-wrapper {
+  width: 50vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.admin-left-wrapper img {
+  max-width: 35vw;
+  margin-left: 20vw;
+  margin-top: 5vh;
+}
+
+.admin-all-stats {
+  margin-bottom: 45vh;
+  align-self: flex-start;
+  margin-left: 5vw;
+  font-size: 1.4rem;
+  background-color: #00c3ff;
+  padding: 1rem 5rem;
+  color: #fff;
+}
+
+.admin-right-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5rem;
+  gap: 1rem;
+}
+
+.admin-games-table button {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  padding: 0.25rem;
+  font-size: 1rem;
+  margin-right: 0.5rem;
+}
+
+.admin-score-input {
+  background-color: transparent;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  font-size: 1.25rem;
+  max-width: 3rem;
+  text-align: center;
+  color: #fff;
+}
+
+.admin-score-input:focus-visible {
+  outline-color: #00c3ff;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+  height: fit-content;
+}
+
+thead {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+th,
+td {
+  padding: 1rem 2rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  white-space: nowrap;
+}
+
+th {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+td {
+  font-size: 1.2rem;
+}
+
+tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+select {
+  background-color: transparent;
+  color: #ffffff;
+  padding: 6px 10px;
+  outline: none;
+  font-size: 1.2rem;
+  border: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+}
+
+select option {
+  background-color: transparent;
+  color: #00c3ff;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+}
+
+.stats-table-control {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+}
+
+.stats-table-control-options {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stats-table-control button {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  padding: 0.25rem;
+  font-size: 1.8rem;
+}
+
+.stats-table-control input {
+  background-color: transparent;
+  color: #ffffff;
+  padding: 6px 10px;
+  outline: none;
+  font-size: 1.2rem;
+  border: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+}
+
+.stats-table-control input::placeholder {
+  opacity: 0.5;
+  color: #fff;
+}
+
+.stats-pages {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.admin-logout-button {
+  position: absolute;
+  bottom: 2.5rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  border-radius: 15px;
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  padding: 0.25rem 1rem;
+  font-size: 1.8rem;
+}
+
+@media (max-width: 768px) {
+  .admin-wrapper {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url("../media/HomeResponsiveBg.png");
+  }
+
+  .admin-left-wrapper {
+    width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0;
+  }
+
+  .admin-left-wrapper img {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .admin-all-stats {
+    display: block;
+    margin: 1rem auto 1rem auto;
+    font-size: 1.2rem;
+    width: 90%;
+    max-width: 75vw;
+    text-align: center;
+    padding: 3rem 2rem;
+  }
+
+  .admin-right-wrapper {
+    width: 100%;
+    margin: 0;
+    padding: 0 1rem;
+    align-items: center;
+  }
+
+  .admin-games-table {
+    display: block;
+    font-size: 0.9rem;
+    max-width: 95vw;
+    margin-top: 1rem;
+  }
+
+  th,
+  td {
+    padding: 0.5rem 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .stats-table-control {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .stats-table-control input {
+    order: -1;
+    width: 100%;
+  }
+
+  .stats-table-control select {
+    width: 90%;
+  }
+
+  .stats-table-control button {
+    width: 3rem;
+    font-size: 1.5rem;
+  }
+
+  .stats-pages {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+  }
+
+  .admin-logout-button  {
+    font-size: 1rem;
+    bottom:1rem;
+  }
+}
